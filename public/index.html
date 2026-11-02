@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101018">
+<meta name="description" content="The beginner-friendly guide to setting up Nuvio, Real-Debrid and Comet.">
+<title>Nuvio 4 Dummies — Setup made simple</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23a78bfa%22/%3E%3Cpath d=%22M12 9l11 7-11 7z%22 fill=%22%23171321%22/%3E%3C/svg%3E">
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#101018; --panel:#191925; --panel2:#222233;
+  --text:#f5f3ff; --muted:#aaa8bd; --accent:#a78bfa;
+  --green:#75d6a1; --line:#343347;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+font:16px/1.6 system-ui,-apple-system,sans-serif}
+header{padding:20px max(22px,calc((100% - 900px)/2));
+border-bottom:1px solid var(--line);display:flex;
+justify-content:space-between;align-items:center}
+.logo{font-size:19px;font-weight:800;letter-spacing:-.7px}
+.logo span{color:var(--accent)}
+.tag{color:var(--muted);font-size:12px}
+main{max-width:760px;margin:auto;padding:55px 20px 90px}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:800;
+letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(38px,8vw,62px);line-height:1.05;
+letter-spacing:-2px;margin:14px 0}
+h2{font-size:27px;line-height:1.2;margin:12px 0}
+p{color:var(--muted)}
+.hero{margin-bottom:36px}
+.hero p{font-size:18px;max-width:570px}
+.panel{background:var(--panel);border:1px solid var(--line);
+border-radius:20px;padding:25px;margin:18px 0}
+.progress{height:6px;background:var(--panel2);
+border-radius:20px;overflow:hidden;margin:16px 0}
+.bar{height:100%;width:0;background:var(--accent);transition:.3s}
+.step-label{display:flex;justify-content:space-between;
+font-size:13px;color:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+button,.link{border:0;border-radius:12px;padding:13px 18px;
+font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;
+display:inline-flex;align-items:center;justify-content:center}
+.primary{background:var(--accent);color:#171321}
+.secondary{background:var(--panel2);color:var(--text);
+border:1px solid var(--line)}
+button:disabled{opacity:.4;cursor:not-allowed}
+.choice{display:flex;align-items:center;gap:12px;
+background:var(--panel2);border:1px solid var(--line);
+padding:15px;border-radius:12px;margin:10px 0;cursor:pointer}
+.choice input{accent-color:var(--accent);width:18px;height:18px}
+.notice{border-left:3px solid var(--accent);padding:12px 15px;
+background:var(--panel2);border-radius:5px;color:var(--muted);
+font-size:14px;margin:18px 0}
+.notice.warning{border-color:#e7bd67}
+.step{display:none}
+.step.active{display:block}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+.small{font-size:13px}
+a{color:var(--accent)}
+.check{display:flex;gap:12px;align-items:flex-start;
+padding:12px 0;border-bottom:1px solid var(--line)}
+.check input{margin-top:6px;accent-color:var(--green)}
+.services{border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.chips span{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--text)}
+.tabs{display:flex;gap:6px;background:var(--panel2);border-radius:12px;padding:4px;margin:20px 0 4px}
+.tabs button{flex:1;background:transparent;color:var(--muted);padding:10px}
+.tabs button[aria-selected="true"]{background:var(--accent);color:#171321}
+.howto ol{padding-left:22px;color:var(--text)}
+.howto li{margin:8px 0}
+.urlbox{display:block;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font:13px ui-monospace,monospace;word-break:break-all;user-select:all;color:var(--text);margin:10px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--green);color:#0d1a13;font-weight:700;padding:10px 16px;border-radius:10px;opacity:0;transition:.2s;pointer-events:none}
+.toast.show{opacity:1}
+button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px;counter-reset:s}
+.steps>li[hidden]{display:none}
+.steps>li{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px;counter-increment:s}
+.steps>li.done{border-color:var(--green)}
+.steps h3{margin:0;font-size:17px;display:flex;gap:10px;align-items:center}
+.steps h3::before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font-size:13px}
+.steps>li.done h3::before{content:"✓";background:var(--green);color:#0d1a13;border-color:var(--green)}
+.steps ol{padding-left:20px;margin:10px 0;color:var(--muted)}
+.steps .actions{margin-top:12px}
+.donebox{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:14px;cursor:pointer;color:var(--text)}
+.donebox input{width:18px;height:18px;accent-color:var(--green)}
+.field{display:grid;gap:6px;margin-top:12px}
+.field label{font-size:13px;font-weight:700;color:var(--text)}
+.field .row{display:flex;gap:8px}
+.field input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);font:14px ui-monospace,monospace}
+.field input:focus{outline:2px solid var(--accent);border-color:transparent}
+.field button{padding:10px 14px}
+.saved{font-size:12px;color:var(--green);min-height:1em}
+.vault{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:16px}
+.vault h3{margin:0 0 4px;font-size:16px}
+.vault dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:12px 0 0;font-size:13px}
+.vault dt{color:var(--muted)}
+.vault dd{margin:0;font-family:ui-monospace,monospace;word-break:break-all;color:var(--text)}
+.copyrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.copyrow button{padding:10px 14px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NUVIO <span>4 DUMMIES</span></div>
+  <div class="tag">BEGINNER SETUP GUIDE</div>
+</header>
+<main>
+<section class="hero">
+  <div class="eyebrow">Your setup starts here</div>
+  <h1>Let's get you<br>up and running.</h1>
+  <p>No technical experience needed. We'll walk you through Nuvio, Real-Debrid and Comet one simple step at a time.</p>
+  <div class="actions"><a class="link secondary" href="#homepage">Set up homepage folders ↓</a></div>
+</section>
+
+<div class="panel" id="guide">
+  <div class="step-label"><span id="stepName">Getting started</span><span id="counter">1 of 6</span></div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+
+  <section class="step active">
+    <div class="eyebrow">Welcome</div>
+    <h2>First, let's see what you have.</h2>
+    <p>This guide adapts to what you've already completed. You can skip anything you don't need.</p>
+    <label class="choice"><input type="checkbox" id="haveNuvio"> I already have Nuvio installed.</label>
+    <label class="choice"><input type="checkbox" id="haveRd"> I already have a Real-Debrid account.</label>
+    <label class="choice"><input type="checkbox" id="haveComet"> I have already configured Comet.</label>
+    <div class="notice">You will never need to give this website your Real-Debrid password or API key.</div>
+  </section>
+
+  <section class="step">
+    <div class="eyebrow">Step 1</div>
+    <h2>Get Nuvio</h2>
+    <p>Nuvio is the application you'll use to browse your media library.</p>
+    <a class="link primary" href="https://nuvio.tv/" target="_blank" rel="noopener">Visit Nuvio's official website ↗</a>
+    <div class="notice">Download the version intended for your device. Install it, open it, and create or sign into your account.</div>
+    <p>When you're ready, return here and continue.</p>
+  </section>
+
+  <section class="step">
+    <div class="eyebrow">Step 2</div>
+    <h2>Set up Real-Debrid</h2>
+    <p>Real-Debrid is a separate paid service. It provides access to supported cached content.</p>
+    <a class="link primary" href="https://real-debrid.com/" target="_blank" rel="noopener">Visit Real-Debrid ↗</a>
+    <div class="notice">Create an account and choose a subscription if you want to use its premium features.</div>
+    <p>Already have an account? You can move on.</p>
+  </section>
+
+  <section class="step">
+    <div class="eyebrow">Step 3</div>
+    <h2>Configure Comet</h2>
+    <p>Comet is an addon that searches for compatible content sources.</p>
+    <a class="link primary" href="https://comet.elfhosted.com/configure" target="_blank" rel="noopener">Open Comet configuration ↗</a>
+    <div class="notice warning">Configure Real-Debrid directly on the official Comet configuration page. Treat your personalized manifest URL as a private credential.</div>
+    <p>Choose your preferences, configure the service, and copy your generated addon manifest URL.</p>
+  </section>
+
+  <section class="step">
+    <div class="eyebrow">Step 4</div>
+    <h2>Install Comet in Nuvio</h2>
+    <p>Return to Nuvio and open its addon management area.</p>
+    <ol>
+      <li>Open Nuvio settings.</li>
+      <li>Find Addons or Add Addon.</li>
+      <li>Choose the option to add an addon by URL.</li>
+      <li>Paste your Comet manifest URL.</li>
+      <li>Follow Nuvio's installation prompts.</li>
+    </ol>
+    <div class="notice">Menu names may vary by Nuvio version and device. Never share your personalized addon URL publicly.</div>
+  </section>
+
+  <section class="step">
+    <div class="eyebrow">Final step</div>
+    <h2>Check your setup</h2>
+    <p>Use this checklist to make sure you've completed each stage.</p>
+    <label class="check"><input type="checkbox"> Nuvio is installed and I can sign in.</label>
+    <label class="check"><input type="checkbox"> My Real-Debrid account is active.</label>
+    <label class="check"><input type="checkbox"> Comet is configured.</label>
+    <label class="check"><input type="checkbox"> Comet appears in Nuvio's addons.</label>
+    <label class="check"><input type="checkbox"> I have tested playback with authorized content.</label>
+    <div class="notice">If something isn't working, revisit the relevant step and double-check your configuration.</div>
+    <h2>You're ready to go!</h2>
+    <p>Thanks for using Nuvio 4 Dummies.</p>
+  </section>
+
+  <div class="actions">
+    <button class="secondary" id="back" disabled>← Back</button>
+    <button class="primary" id="next">Let's go →</button>
+  </div>
+</div>
+
+<section class="panel" id="homepage">
+  <div class="eyebrow">Homepage folders</div>
+  <h2>Pick one way to fill your homepage.</h2>
+  <p>Both add a Streaming Services collection. Choose one: on the phone app, importing replaces all existing collections, so doing both means the second one wipes the first.</p>
+  <div class="actions"><a class="link primary" href="#streaming-services">Quick · no accounts</a><a class="link secondary" href="#full-setup">Full · services + genres (MDBList)</a></div>
+</section>
+
+<section class="panel services" id="streaming-services">
+  <div class="eyebrow">Option 1 · Quick</div>
+  <h2>Netflix, Disney+, Hulu and more, right on your homepage.</h2>
+  <p>This adds a <b>Streaming Services</b> collection to Nuvio with a folder for each service. Every folder has Popular Movies, Popular Series, Latest Movies and Latest Series rows.</p>
+  <div class="chips"><span>Netflix</span><span>Prime Video</span><span>Disney+</span><span>HBO Max</span><span>Apple TV+</span><span>Paramount+</span><span>Hulu</span><span>Peacock</span><span>Crunchyroll</span></div>
+  <div class="notice">No extra addon, API key or account needed. The rows use TMDB, which is built into Nuvio. This only organizes what you browse. It doesn't give access to any service's subscription.</div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" id="tab-phone" aria-controls="how-phone">Phone or tablet</button>
+    <button role="tab" aria-selected="false" id="tab-tv" aria-controls="how-tv">TV</button>
+  </div>
+
+  <div class="howto" id="how-phone" role="tabpanel" aria-labelledby="tab-phone">
+    <div class="notice warning">Importing replaces all collections on this account. Have some you want to keep? Tap the two-squares icon first to copy a backup, or import on a TV instead, which adds without replacing.</div>
+    <ol>
+      <li>Tap <b>Copy collection</b> below.</li>
+      <li>Open the Nuvio <b>app</b> and go to <b>Settings → Layout → Collections</b>.</li>
+      <li>Tap the <b>clipboard icon</b> at the top-right (not the two-squares icon next to it).</li>
+      <li>Paste into the box, then tap <b>Import</b>.</li>
+    </ol>
+    <div class="actions">
+      <button class="primary" id="copyJson">Copy collection</button>
+      <a class="link secondary" href="/collections/streaming-services.json" download="streaming-services.json">Download file</a>
+    </div>
+  </div>
+
+  <div class="howto" id="how-tv" role="tabpanel" aria-labelledby="tab-tv" hidden>
+    <ol>
+      <li>In the Nuvio TV app, open <b>Settings</b> and find <b>Collections</b>.</li>
+      <li>Choose <b>Import</b>, then pick the <b>URL</b> option.</li>
+      <li>Type this link exactly, then confirm the import:</li>
+    </ol>
+    <code class="urlbox" id="importUrl">/collections/streaming-services.json</code>
+    <div class="actions"><button class="secondary" id="copyUrl">Copy link</button></div>
+  </div>
+
+  <p class="small">Import in the installed Nuvio app; the website version (nuvioweb.space) can't import. Once imported, it syncs to your other devices. Rows use US streaming availability. Don't see Collections? Update Nuvio.</p>
+</section>
+
+<section class="panel" id="full-setup">
+  <div class="eyebrow">Option 2 · Full setup with MDBList</div>
+  <h2>Get the complete homepage: services, genres and more.</h2>
+  <p>You'll make two free accounts, connect them to AIOMetadata, and get your own private addon link for Nuvio.<span data-when="setup" hidden> Our setup file then loads the same catalogs and folders we use.</span> Takes about 10 minutes.</p>
+  <div class="progress"><div class="bar" id="fsBar"></div></div>
+  <div class="step-label"><span id="fsCount">0 of 4 done</span><span>Free accounts only</span></div>
+  <div class="vault" id="vault">
+    <h3>Saved on this phone</h3>
+    <p class="small" style="margin:0">Keys and links you enter below are kept only in this browser, never sent anywhere. Switching phones or browsers? Copy them to your notes first.</p>
+    <dl id="vaultList"></dl>
+    <div class="copyrow"><button class="secondary" id="vaultCopy">Copy all to notes</button><button class="secondary" id="vaultClear">Clear for next customer</button></div>
+  </div>
+
+  <ol class="steps">
+    <li data-fs>
+      <h3>Make an MDBList account</h3>
+      <ol>
+        <li>Open MDBList and sign up. It's free.</li>
+        <li>Go to <b>Preferences</b> and find <b>API Key</b>.</li>
+        <li>Copy the key and paste it below. We'll keep it for later.</li>
+      </ol>
+      <div class="field"><label for="f-mdblist">MDBList API key</label><div class="row"><input id="f-mdblist" data-store="mdblist" placeholder="Paste your MDBList key" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="secondary" data-paste="mdblist" type="button">Paste</button></div><span class="saved" data-saved="mdblist"></span></div>
+
+      <div class="actions"><a class="link primary" href="https://mdblist.com/" target="_blank" rel="noopener">Open MDBList ↗</a><a class="link secondary" href="https://mdblist.com/preferences/" target="_blank" rel="noopener">Preferences ↗</a></div>
+      <label class="donebox"><input type="checkbox"> I have my MDBList API key</label>
+    </li>
+
+    <li data-fs>
+      <h3>Make a TMDB account</h3>
+      <ol>
+        <li>Sign up at TMDB (free) and confirm your email.</li>
+        <li>Open <b>Settings → API</b> and request an API key. Pick <b>Developer</b>, say it's for personal use.</li>
+        <li>Copy the <b>API Key</b> (the shorter one) and paste it below.</li>
+      </ol>
+      <div class="field"><label for="f-tmdb">TMDB API key</label><div class="row"><input id="f-tmdb" data-store="tmdb" placeholder="Paste your TMDB key" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="secondary" data-paste="tmdb" type="button">Paste</button></div><span class="saved" data-saved="tmdb"></span></div>
+
+      <div class="actions"><a class="link primary" href="https://www.themoviedb.org/signup" target="_blank" rel="noopener">Sign up ↗</a><a class="link secondary" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">API settings ↗</a></div>
+      <label class="donebox"><input type="checkbox"> I have my TMDB API key</label>
+    </li>
+
+    <li data-fs data-needs="setup" hidden>
+      <h3>Download our setup file</h3>
+      <p class="small">It holds the catalog list only. No accounts, keys or passwords are in it.</p>
+      <div class="actions"><a class="link primary" data-file="setup" href="#" download="nuvio4dummies-aiometadata.json">Download setup file</a></div>
+      <label class="donebox"><input type="checkbox"> Downloaded</label>
+    </li>
+
+    <li data-fs>
+      <h3>Set up AIOMetadata</h3>
+      <ol>
+        <li>Open AIOMetadata.</li>
+        <li data-when="setup" hidden>Go to <b>Import &amp; Export → Import Configuration</b> and choose the setup file you downloaded.</li>
+        <li>Paste your <b>TMDB API key</b> in the TMDB section and your <b>MDBList API key</b> in the MDBList section. Use the buttons below.</li>
+        <li>Tap <b>Save</b>, create a password, and you'll get <b>Your UUID</b> and an <b>Install URL</b>.</li>
+      </ol>
+      <div class="actions" style="margin-top:4px"><a class="link primary" data-file="aiom" href="#" target="_blank" rel="noopener">Open AIOMetadata ↗</a></div>
+      <div class="copyrow"><button class="secondary" data-copy="tmdb" type="button">Copy TMDB key</button><button class="secondary" data-copy="mdblist" type="button">Copy MDBList key</button></div>
+      <div class="field"><label for="f-uuid">Your UUID</label><div class="row"><input id="f-uuid" data-store="uuid" placeholder="Paste your UUID" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="secondary" data-paste="uuid" type="button">Paste</button></div><span class="saved" data-saved="uuid"></span></div>
+      <div class="field"><label for="f-install">Install URL</label><div class="row"><input id="f-install" data-store="install" placeholder="Paste your Install URL" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="secondary" data-paste="install" type="button">Paste</button></div><span class="saved" data-saved="install"></span></div>
+      <div class="notice warning">Save your AIOMetadata password in your phone's password manager. It isn't stored here. You need it plus your UUID to change your setup later. Keep your Install URL private.</div>
+      <label class="donebox"><input type="checkbox"> I have my UUID and Install URL</label>
+    </li>
+
+    <li data-fs>
+      <h3>Add it to Nuvio</h3>
+      <ol>
+        <li>Tap <b>Copy Install URL</b> below (or <b>Copy URL</b> in AIOMetadata).</li>
+        <li>In the Nuvio app, open <b>Settings → Content &amp; Discovery → Addons</b>.</li>
+        <li>Paste the link into <b>Addon URL</b> and tap <b>Install</b>.</li>
+      </ol>
+      <div class="copyrow"><button class="secondary" data-copy="install" type="button">Copy Install URL</button></div>
+
+      <label class="donebox"><input type="checkbox"> AIOMetadata shows in my addons</label>
+    </li>
+
+    <li data-fs data-needs="collection" hidden>
+      <h3>Add the homepage folders</h3>
+      <p class="small">This replaces any collections already on the account, including Option 1.</p>
+      <ol>
+        <li>Tap <b>Copy folders</b>.</li>
+        <li>In the Nuvio app, open <b>Settings → Layout → Collections</b>.</li>
+        <li>Tap the <b>clipboard icon</b> at the top-right, paste, and tap <b>Import</b>.</li>
+      </ol>
+      <div class="actions"><button class="primary" data-file="collection" id="copyMine">Copy folders</button></div>
+      <label class="donebox"><input type="checkbox"> My homepage shows the folders</label>
+    </li>
+  </ol>
+</section>
+</main>
+<footer>Nuvio 4 Dummies · Independent community setup guide · Not affiliated with Nuvio, Real-Debrid or ElfHosted.<br>Version 2026-11-01c</footer>
+<div class="toast" id="toast" role="status"></div>
+<script>
+// Shared helpers
+const toastEl=document.getElementById('toast');let toastTimer;
+function say(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2200)}
+function copyText(text,okMsg){
+  if(!text){say('Still loading. Try again in a second.');return}
+  const fallback=()=>{const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();say(ok?okMsg:'Copy blocked on this browser. Use Download file instead.')};
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(()=>say(okMsg),fallback);else fallback();
+}
+
+// Setup guide: welcome answers skip steps already done
+(function(){
+  const steps=[...document.querySelectorAll('.step')];
+  const names=['Getting started','Install Nuvio','Real-Debrid','Configure Comet','Install the addon','Finish setup'];
+  const skips={1:'haveNuvio',2:'haveRd',3:'haveComet',4:'haveComet'};
+  const skipped=i=>skips[i]&&document.getElementById(skips[i]).checked;
+  const guide=document.getElementById('guide');
+  let current=0;
+  function render(){
+    steps.forEach((s,i)=>s.classList.toggle('active',i===current));
+    document.getElementById('stepName').textContent=names[current];
+    document.getElementById('counter').textContent=(current+1)+' of '+steps.length;
+    document.getElementById('bar').style.width=((current+1)/steps.length*100)+'%';
+    document.getElementById('back').disabled=current===0;
+    document.getElementById('next').textContent=current===0?"Let's go →":current===steps.length-1?'Start over ↻':'Continue →';
+  }
+  function go(dir){
+    if(dir>0&&current===steps.length-1){current=0}
+    else{let i=current+dir;while(i>0&&i<steps.length-1&&skipped(i))i+=dir;current=Math.max(0,Math.min(steps.length-1,i))}
+    render();guide.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  document.getElementById('next').onclick=()=>go(1);
+  document.getElementById('back').onclick=()=>go(-1);
+  render();
+})();
+
+// Option 1: Streaming Services collection
+(function(){
+  const path='/collections/streaming-services.json';
+  const url=location.origin+path;
+  document.getElementById('importUrl').textContent=url;
+  let json=null;
+  fetch(path).then(r=>r.ok?r.text():null).then(t=>{json=t}).catch(()=>{});
+  document.getElementById('copyJson').onclick=()=>copyText(json,'Copied. Now paste it in Nuvio.');
+  document.getElementById('copyUrl').onclick=()=>copyText(url,'Link copied.');
+  const tabs=[['tab-phone','how-phone'],['tab-tv','how-tv']];
+  tabs.forEach(([tab,panel])=>document.getElementById(tab).onclick=()=>{
+    tabs.forEach(([t2,p2])=>{document.getElementById(t2).setAttribute('aria-selected',String(t2===tab));document.getElementById(p2).hidden=p2!==panel});
+  });
+})();
+
+// Option 2: full setup with MDBList
+(function(){
+  // Fill these in once the shared files are on the site.
+  const FULL_SETUP={
+    aiometadataUrl:'https://aiometadata.elfhosted.com/configure',                                  // AIOMetadata configure page
+    setupFile:'/full-setup/aiometadata-setup.json',     // AIOMetadata "Export Configuration" (API keys excluded)
+    collectionFile:'/full-setup/nuvio-collections.json' // AIOMetadata Collection Builder "Export & share"
+  };
+  const items=[...document.querySelectorAll('[data-fs]')];
+  const boxes=items.map(li=>li.querySelector('.donebox input'));
+  function update(){
+    let n=0,total=0;items.forEach((li,i)=>{li.classList.toggle('done',boxes[i].checked);if(li.hidden)return;total++;if(boxes[i].checked)n++});
+    document.getElementById('fsCount').textContent=n+' of '+total+' done';
+    document.getElementById('fsBar').style.width=(total?n/total*100:0)+'%';
+    try{localStorage.setItem('n4d-full',JSON.stringify(boxes.map(b=>b.checked)))}catch(e){}
+  }
+  try{const saved=JSON.parse(localStorage.getItem('n4d-full')||'[]');boxes.forEach((b,i)=>b.checked=!!saved[i])}catch(e){}
+  boxes.forEach(b=>b.addEventListener('change',update));update();
+
+  // Saved details: kept in this browser only
+  const LABELS={mdblist:'MDBList key',tmdb:'TMDB key',uuid:'UUID',install:'Install URL'};
+  const STORE='n4d-details';
+  let details={};
+  try{details=JSON.parse(localStorage.getItem(STORE)||'{}')||{}}catch(e){}
+  const persist=()=>{try{localStorage.setItem(STORE,JSON.stringify(details))}catch(e){}};
+  const mask=(k,v)=>k==='install'?v.replace(/^(https?:\/\/[^/]+\/).*/,'$1•••'):v.length>8?v.slice(0,4)+'•••'+v.slice(-4):v;
+  function renderVault(){
+    const list=document.getElementById('vaultList');list.innerHTML='';
+    const keys=Object.keys(LABELS).filter(k=>details[k]);
+    if(!keys.length){list.innerHTML='<dt>Nothing saved yet</dt><dd></dd>';}
+    keys.forEach(k=>{const dt=document.createElement('dt');dt.textContent=LABELS[k];const dd=document.createElement('dd');dd.textContent=mask(k,details[k]);list.append(dt,dd)});
+    document.querySelectorAll('[data-copy]').forEach(b=>{const has=!!details[b.dataset.copy];b.disabled=!has;b.title=has?'':'Enter it in an earlier step first'});
+  }
+  document.querySelectorAll('[data-store]').forEach(input=>{
+    const k=input.dataset.store,flag=document.querySelector(`[data-saved="${k}"]`);
+    input.value=details[k]||'';if(details[k])flag.textContent='Saved on this phone';
+    input.addEventListener('input',()=>{const v=input.value.trim();if(v)details[k]=v;else delete details[k];persist();flag.textContent=v?'Saved on this phone':'';renderVault()});
+  });
+  document.querySelectorAll('[data-paste]').forEach(b=>b.addEventListener('click',()=>{
+    const input=document.getElementById('f-'+b.dataset.paste);
+    if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(t=>{input.value=t.trim();input.dispatchEvent(new Event('input'))},()=>{input.focus();say('Long-press the box and choose Paste.')})}
+    else{input.focus();say('Long-press the box and choose Paste.')}
+  }));
+  document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>copyText(details[b.dataset.copy],LABELS[b.dataset.copy]+' copied.')));
+  document.getElementById('vaultCopy').addEventListener('click',()=>{
+    const lines=Object.keys(LABELS).filter(k=>details[k]).map(k=>LABELS[k]+': '+details[k]);
+    if(!lines.length){say('Nothing saved yet.');return}
+    copyText('Nuvio setup details\n'+lines.join('\n'),'Copied. Paste it into your notes.');
+  });
+  const clearBtn=document.getElementById('vaultClear');let armed=false,armTimer;
+  clearBtn.addEventListener('click',()=>{
+    if(!armed){armed=true;clearBtn.textContent='Tap again to clear';armTimer=setTimeout(()=>{armed=false;clearBtn.textContent='Clear for next customer'},3000);return}
+    clearTimeout(armTimer);armed=false;clearBtn.textContent='Clear for next customer';
+    details={};persist();
+    try{localStorage.removeItem('n4d-full')}catch(e){}
+    document.querySelectorAll('[data-store]').forEach(i=>{i.value='';document.querySelector(`[data-saved="${i.dataset.store}"]`).textContent=''});
+    boxes.forEach(b=>b.checked=false);update();renderVault();say('Cleared. Ready for the next customer.');
+  });
+  renderVault();
+
+  // Steps that need a shared file stay hidden until that file is on the site
+  const show=(name)=>{document.querySelectorAll(`[data-needs="${name}"],[data-when="${name}"]`).forEach(el=>el.hidden=false);update()};
+  document.querySelector('[data-file="aiom"]').href=FULL_SETUP.aiometadataUrl;
+  fetch(FULL_SETUP.setupFile,{method:'HEAD'}).then(r=>{if(r.ok){document.querySelector('[data-file="setup"]').href=FULL_SETUP.setupFile;show('setup')}}).catch(()=>{});
+  const copyBtn=document.getElementById('copyMine');
+  let collectionJson=null;
+  fetch(FULL_SETUP.collectionFile).then(r=>r.ok?r.text():null).then(t=>{if(t){collectionJson=t;show('collection')}}).catch(()=>{});
+  copyBtn.addEventListener('click',()=>copyText(collectionJson,'Copied. Now paste it in Nuvio.'));
+})();
+</script>
+</body>
+</html>

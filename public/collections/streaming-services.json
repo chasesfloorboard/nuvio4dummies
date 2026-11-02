@@ -1,0 +1,506 @@
+[
+  {
+    "id": "nuvio4dummies-streaming-services",
+    "title": "Streaming Services",
+    "pinToTop": false,
+    "viewMode": "TABBED_GRID",
+    "showAllTab": true,
+    "folders": [
+      {
+        "id": "n4d-netflix",
+        "title": "Netflix",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Netflix Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "8|1796"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Netflix Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "8|1796"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Netflix Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "8|1796",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Netflix Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "8|1796",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/kgkTFbtw/Netflix.png"
+      },
+      {
+        "id": "n4d-prime-video",
+        "title": "Prime Video",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Prime Video Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "9|2100"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Prime Video Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "9|2100"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Prime Video Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "9|2100",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Prime Video Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "9|2100",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/prime-video-light.png"
+      },
+      {
+        "id": "n4d-disney-plus",
+        "title": "Disney+",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Disney+ Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "337"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Disney+ Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "337"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Disney+ Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "337",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Disney+ Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "337",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/W1Q56kJB/Disney.png"
+      },
+      {
+        "id": "n4d-hbo-max",
+        "title": "HBO Max",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "HBO Max Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "1899"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "HBO Max Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "1899"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "HBO Max Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "1899",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "HBO Max Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "1899",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/cLVFMn8X/HBO-Max.png"
+      },
+      {
+        "id": "n4d-apple-tv",
+        "title": "Apple TV+",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Apple TV+ Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "350"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Apple TV+ Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "350"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Apple TV+ Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "350",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Apple TV+ Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "350",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/4xrWb9hS/Apple-TV.png"
+      },
+      {
+        "id": "n4d-paramount",
+        "title": "Paramount+",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Paramount+ Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "531|2303|2616"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Paramount+ Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "531|2303|2616"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Paramount+ Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "531|2303|2616",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Paramount+ Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "531|2303|2616",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/RZjgQHn8/Paramount.png"
+      },
+      {
+        "id": "n4d-hulu",
+        "title": "Hulu",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Hulu Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "15"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Hulu Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "15"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Hulu Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "15",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Hulu Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "15",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/CxWcHqfv/Hulu.png"
+      },
+      {
+        "id": "n4d-peacock",
+        "title": "Peacock",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Peacock Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "386|387"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Peacock Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "386|387"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Peacock Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "386|387",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Peacock Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "386|387",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/peacock-light.png"
+      },
+      {
+        "id": "n4d-crunchyroll",
+        "title": "Crunchyroll",
+        "tileShape": "LANDSCAPE",
+        "hideTitle": false,
+        "sources": [
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Crunchyroll Popular Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "283"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Crunchyroll Popular Series",
+            "mediaType": "TV",
+            "sortBy": "popularity.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "283"
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Crunchyroll Latest Movies",
+            "mediaType": "MOVIE",
+            "sortBy": "primary_release_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "283",
+              "voteCountGte": 10
+            }
+          },
+          {
+            "provider": "tmdb",
+            "tmdbSourceType": "DISCOVER",
+            "title": "Crunchyroll Latest Series",
+            "mediaType": "TV",
+            "sortBy": "first_air_date.desc",
+            "filters": {
+              "watchRegion": "US",
+              "withWatchProviders": "283",
+              "voteCountGte": 10
+            }
+          }
+        ],
+        "coverImageUrl": "https://i.postimg.cc/Hkf64y7P/Crunchyroll.png"
+      }
+    ]
+  }
+]
