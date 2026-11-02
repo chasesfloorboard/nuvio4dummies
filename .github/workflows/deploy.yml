@@ -1,0 +1,31 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the collection still imports into Nuvio
+        run: node tools/validate-collection.js public/collections/streaming-services.json
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/187076934426/locations/global/workloadIdentityPools/github/providers/github
+          service_account: github-deployer@nuvio4dummies.iam.gserviceaccount.com
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy
+        run: gcloud run deploy nuvio4dummies --source . --region us-west1 --project nuvio4dummies --quiet
