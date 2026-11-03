@@ -9,11 +9,16 @@ http.createServer((req, res) => {
 
   // Short address for typing into Downloader on a Fire TV: sends the latest
   // official Nuvio TV release (32-bit build, runs on every Fire TV device).
-  if (pathname.replace(/\/+$/, '').toLowerCase() === '/tv') {
-    res.writeHead(302, {
-      Location: 'https://github.com/NuvioMedia/NuvioTV/releases/latest/download/app-full-armeabi-v7a-release.apk',
-      'Cache-Control': 'no-cache'
-    });
+  // Short download links to the latest official Nuvio releases on GitHub.
+  //   /tv       Nuvio TV, 32-bit build: runs on every Fire TV and Android TV.
+  //   /android  Nuvio for phones, 64-bit build: every Android phone since ~2017.
+  const downloads = {
+    '/tv': 'https://github.com/NuvioMedia/NuvioTV/releases/latest/download/app-full-armeabi-v7a-release.apk',
+    '/android': 'https://github.com/NuvioMedia/NuvioMobile/releases/latest/download/androidApp-full-arm64-v8a-release.apk'
+  };
+  const download = downloads[pathname.replace(/\/+$/, '').toLowerCase()];
+  if (download) {
+    res.writeHead(302, { Location: download, 'Cache-Control': 'no-cache' });
     return res.end();
   }
   const file = path.join(root, pathname === '/' ? 'index.html' : pathname);

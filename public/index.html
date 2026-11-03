@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a1322">
-<meta name="description" content="Set up Nuvio in three steps: streaming services and genres on your homepage, and shows that play.">
+<meta name="description" content="Set up Nuvio in four steps: streaming services and genres on your homepage, and shows that play.">
 <title>Nuvio 4 Dummies</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%2338bdf8%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a855f7%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M12 9l11 7-11 7z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,6 +143,9 @@ h1{font-size:clamp(34px,9vw,46px);line-height:1.05;letter-spacing:-1.2px;margin:
 .finish h2{font-size:28px;margin:0 0 6px;letter-spacing:-.6px}
 .finish p{color:var(--dim);margin:0 0 6px}
 
+.only-ios,.only-desktop{display:none}
+html.ios .only-ios,html.desktop .only-desktop{display:block}
+html.ios .only-android,html.desktop .only-android{display:none}
 details.fire{margin-top:18px;border:1px solid var(--edge);border-radius:var(--r-sm);background:#0b1424}
 details.fire>summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center;padding:12px 14px;min-height:48px;font-weight:600}
 details.fire>summary::-webkit-details-marker{display:none}
@@ -174,8 +177,8 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     Nuvio <span>4 Dummies</span>
   </div>
 
-  <h1>Set up Nuvio in three steps.</h1>
-  <p class="lede">Netflix, Disney+, Hulu and seven more services, thirteen genres, and shows that actually play. Do this on the phone or tablet you'll watch on.</p>
+  <h1>Set up Nuvio in four steps.</h1>
+  <p class="lede">Netflix, Disney+, Hulu and seven more services, thirteen genres, and shows that actually play. Do this on the Android phone or tablet you'll watch on, or follow the TV guide.</p>
 
   <div class="onphone" id="onphone">
     <canvas id="qr" width="96" height="96" aria-label="QR code for this page"></canvas>
@@ -191,20 +194,43 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>Install Nuvio from its official website, open it once, then come back here.</p>
-        <div class="row">
-          <a class="btn go" href="https://nuvio.tv/" target="_blank" rel="noopener">Get Nuvio</a>
-          <button class="btn plain" data-done="0">I have Nuvio</button>
+        <div class="only-android">
+          <p>Nuvio isn't in the Play Store. You install it straight from Nuvio's official download.</p>
+          <a class="btn go" href="/android" id="getAndroid">Download Nuvio</a>
+          <ol class="then">
+            <li><p class="lead">If Chrome warns "File might be harmful", tap Download anyway</p></li>
+            <li><p class="lead">When it finishes, tap Open</p>
+              <p class="note">Missed it? Open your <b>Files</b> or <b>Downloads</b> app and tap the Nuvio file.</p></li>
+            <li><p class="lead">If your phone says it can't install unknown apps</p>
+              <p>Tap <b>Settings</b>, turn on <b>Allow from this source</b>, then go back.</p></li>
+            <li><p class="lead">Tap Install, then Open</p>
+              <p class="note">If Play Protect warns you, tap <b>More details</b>, then <b>Install anyway</b>.</p></li>
+            <li><p class="lead">Make your profile</p>
+              <p>When Nuvio shows <b>Who's watching?</b> with nobody there, tap <b>Manage Profiles</b>, then <b>Add Profile</b>. Type any name and tap <b>Create Profile</b> at the bottom.</p></li>
+          </ol>
+          <p class="note warn" style="margin-top:16px">Samsung phone says the app was blocked? Turn off <b>Auto Blocker</b> in <b>Settings › Security and privacy</b>, install Nuvio, then you can turn it back on.</p>
+          <p class="note" style="margin-top:12px">No account needed. When Nuvio asks you to sign in, you can tap <b>Continue Without Account</b>, or make an account so your setup follows you to other devices.</p>
+          <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
         </div>
-        <p class="note" style="margin-top:12px">No account needed. If Nuvio asks you to sign in, you can tap <b>Continue Without Account</b>, or make an account so your setup follows you to other devices.</p>
+
+        <div class="only-ios">
+          <p class="note warn"><b>Nuvio isn't available for iPhone or iPad right now.</b> It isn't in the App Store, and its iPhone test version is closed.</p>
+          <p style="margin-top:14px">You can still use your iPhone to put Nuvio on your TV with a Fire TV Stick. Open the guide below.</p>
+        </div>
+
+        <div class="only-desktop">
+          <p>Nuvio is set up on an Android phone or tablet. Scan the code at the top with your phone, and this page opens there with a download button.</p>
+          <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
+        </div>
 
         <details class="fire">
           <summary>Can't find Nuvio on your smart TV? Here's how to get it on a Firestick</summary>
           <div class="fbody">
-            <p class="note">Most smart TVs (Samsung, LG, Roku) can't run Nuvio. A Fire TV Stick plugged into the TV can. These steps use your Fire TV remote.</p>
+            <p class="note">Roku can't run Nuvio, and the Samsung and LG versions need developer tools to install. The easy way is an Amazon Fire TV Stick plugged into your TV. These steps use the Fire TV remote.</p>
             <ol class="then">
               <li><p class="lead">Install the Downloader app</p>
-                <p>On the Fire TV home screen, go to <b>Find</b> (the magnifying glass), search <b>Downloader</b> and install the one with the orange icon.</p></li>
+                <p>On the Fire TV home screen, go to <b>Find</b> (the magnifying glass), search <b>Downloader</b> and install the one with the orange icon.</p>
+                <p class="note">Downloader isn't there? Then this Fire TV can't install Nuvio. The newest Fire TV Stick 4K Select is one of these.</p></li>
               <li><p class="lead">Let Downloader install apps</p>
                 <div class="path"><i>Settings</i><em>›</em><i>My Fire TV</i><em>›</em><i>Developer options</i><em>›</em><i>Install unknown apps</i></div>
                 <p>Turn <b>Downloader</b> on.</p>
@@ -215,9 +241,12 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
               <li><p class="lead">Install Nuvio</p>
                 <p>Wait for the download to finish, then choose <b>Install</b> and <b>Open</b>.</p>
                 <p class="note">Afterwards Downloader offers to delete the install file. Choose <b>Delete</b> to free up space; Nuvio stays installed.</p></li>
-              <li><p class="lead">Set up your homepage on the TV</p>
+              <li><p class="lead">Open Nuvio</p>
+                <p>Choose <b>Continue without account</b>. When it asks you to choose, pick <b>Advanced</b>, not Essential. Essential can't add your homepage.</p></li>
+              <li><p class="lead">Set up your homepage</p>
                 <p>Follow <a href="#tv" id="toTv">Setting up Nuvio on a TV</a> at the bottom of this page. You do it from your phone, no typing on the remote.</p></li>
             </ol>
+            <p class="note" style="margin-top:16px">Google TV or Android TV instead (Chromecast, Sony, TCL, Hisense)? Get Downloader from the Play Store, and allow it under <b>Settings › Apps › Security &amp; restrictions › Unknown sources</b>. The rest is the same.</p>
           </div>
         </details>
       </div></div></div>
@@ -280,11 +309,26 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     <li class="step" data-step="2">
       <button class="head" aria-expanded="false">
         <span class="num"><b>3</b></span>
+        <span class="title">Add movie and show info<small>One tap, free</small></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="body"><div><div class="inner">
+        <p>Nuvio needs the free Cinemeta addon to open movies and shows. Without it, tapping a title says "Failed to load".</p>
+        <button class="btn go" id="addCinemeta">Add Cinemeta to Nuvio</button>
+        <p class="note" style="margin-top:12px">Nuvio opens and adds it. Then come back here.</p>
+        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="2" aria-disabled="true" id="cinemetaDone">Cinemeta is in Nuvio</button></div>
+      </div></div></div>
+    </li>
+
+    <!-- Step 4 -->
+    <li class="step" data-step="3">
+      <button class="head" aria-expanded="false">
+        <span class="num"><b>4</b></span>
         <span class="title">Make shows play<small>Real-Debrid and Comet</small></span>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>Your homepage shows what's out there. To press play, Nuvio needs a source. This is the one paid part.</p>
+        <p>Your homepage shows what's out there. To press play, Nuvio needs a source: Real-Debrid (paid, a few dollars a month) and Comet (free, we set it up for you).</p>
         <ol class="mini">
           <li>
             <h3>Get Real-Debrid</h3>
@@ -292,28 +336,29 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
             <a class="btn plain" href="https://real-debrid.com/" target="_blank" rel="noopener">Open Real-Debrid</a>
           </li>
           <li>
-            <h3>Set up Comet</h3>
-            <p>On the Comet page, choose <b>Real-Debrid</b> and sign in. Then tap <b>Install</b>. If your phone asks which app to use, pick <b>Nuvio</b>.</p>
-            <a class="btn plain" href="https://comet.elfhosted.com/configure" target="_blank" rel="noopener">Open Comet</a>
+            <h3>Copy your Real-Debrid key</h3>
+            <p>This opens your key page. Hold your finger on the long code under <b>API private token</b>, tap <b>Select all</b>, then <b>Copy</b>.</p>
+            <a class="btn plain" href="https://real-debrid.com/apitoken" target="_blank" rel="noopener">Open my key page</a>
+            <p class="note">Page says <b>403-Forbidden</b>? You're not logged in. Tap <b>Login</b> at the top, sign in, then tap the button above again.</p>
           </li>
           <li>
-            <h3>Didn't open Nuvio?</h3>
-            <p>On the Comet page, tap <b>Copy Link</b>. Paste it here and tap Install in Nuvio.</p>
+            <h3>Paste it here</h3>
             <div class="field">
-              <label for="comet">Comet link</label>
+              <label for="rdkey">Real-Debrid key</label>
               <div class="inrow">
-                <input id="comet" inputmode="url" placeholder="Paste your Comet link" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-                <button class="btn plain" id="pasteComet" type="button">Paste</button>
+                <input id="rdkey" placeholder="Paste your key" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                <button class="btn plain" id="pasteKey" type="button">Paste</button>
               </div>
-              <p class="msg" id="cometMsg" aria-live="polite"></p>
+              <p class="msg" id="keyMsg" aria-live="polite"></p>
             </div>
             <div class="row">
               <button class="btn go" id="installComet" aria-disabled="true">Install in Nuvio</button>
             </div>
-            <p class="note" style="margin-top:12px">Your link stays on this phone. It's never sent to this website. Don't share it: it's tied to your Real-Debrid account.</p>
+            <p class="note" style="margin-top:12px">Nuvio opens and adds Comet. Then come back here.</p>
+            <p class="note" style="margin-top:8px">Your key goes only to Comet, never to this website. Don't share it: it's your Real-Debrid account.</p>
           </li>
         </ol>
-        <div class="row"><button class="btn ok" data-done="2">Comet is in Nuvio</button></div>
+        <div class="row"><button class="btn ok" data-done="3">Comet is in Nuvio</button></div>
       </div></div></div>
     </li>
   </ol>
@@ -329,16 +374,19 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     <p>You set the TV up from your phone. Keep the phone and the TV on the same Wi-Fi.</p>
     <ol class="then">
       <li><p class="lead">On the TV, go to</p>
-        <div class="path"><i>Settings</i><em>›</em><i>Content &amp; Discovery</i><em>›</em><i>Addons</i><em>›</em><i>Manage from phone</i></div></li>
+        <div class="path"><i>Settings</i><em>›</em><i>Content &amp; Discovery</i><em>›</em><i>Addons</i><em>›</em><i>Manage from phone</i></div>
+        <p class="note">No Collections tab on the phone in the next step? Nuvio is in Essential mode. On the TV, go to <b>Settings › Advanced › Switch to Advanced</b>, then open Manage from phone again.</p></li>
       <li><p class="lead">Scan the QR code on the TV with your phone's camera</p>
         <p>A Nuvio page opens on your phone.</p></li>
       <li><p class="lead">Add your homepage</p>
         <p>On that page, tap <b>Collections</b>, then <b>Import</b>, then <b>URL</b>. Paste this link and tap <b>Import</b>:</p>
         <code id="tvUrl">/collections/homepage.json</code>
         <button class="btn plain" id="copyTvUrl" type="button">Copy link</button>
-        <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV.</p></li>
+        <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV. Your Streaming Services and Genres rows appear on the TV's Home, below Nuvio's own rows.</p></li>
       <li><p class="lead">Add Comet</p>
-        <p>On your phone, open <a href="https://comet.elfhosted.com/configure" target="_blank" rel="noopener">Comet</a>, choose <b>Real-Debrid</b> and tap <b>Copy Link</b> (not Install). Back on the Nuvio page, tap <b>Addons</b>, paste it under <b>Add addon by URL</b> and tap <b>Add</b>. Then <b>Save Changes</b>, and <b>Confirm</b> on the TV.</p></li>
+        <p>Do step 4 on your phone first, up to a key that works. Then tap <b>Copy addon link</b>:</p>
+        <button class="btn plain" id="copyCometLink" type="button" aria-disabled="true">Copy addon link</button>
+        <p>On the Nuvio page, tap <b>Addons</b>, paste it under <b>Add addon by URL</b> and tap <b>Add</b>. Then <b>Save Changes</b>, and <b>Confirm</b> on the TV.</p></li>
     </ol>
   </details>
 </main>
@@ -355,6 +403,9 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
 
   // Phones and tablets open nuvio:// links; desktop browsers can't.
   const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  document.documentElement.classList.add(isIOS?'ios':isPhone?'android':'desktop');
+  if(isIOS)$('details.fire').open=true;
   if(!isPhone){
     $('#onphone').classList.add('show');
     try{const q=qrcode(0,'M');q.addData(location.origin+'/');q.make();
@@ -378,7 +429,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
 
   // Steps: one open at a time, progress remembered on this device.
   const steps=[...document.querySelectorAll('.step')];
-  let done=store.get('done',[false,false,false]);
+  let done=store.get('done',[]);done=[0,1,2,3].map(i=>!!done[i]);
   let open=null;
   function current(){const i=done.indexOf(false);return i<0?null:i}
   function render(){
@@ -394,11 +445,11 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   function openStep(i,scroll){open=i;render();if(scroll&&i!=null)setTimeout(()=>steps[i].scrollIntoView({behavior:'smooth',block:'start'}),120)}
   steps.forEach((li,i)=>li.querySelector('.head').addEventListener('click',()=>openStep(open===i?null:i)));
   document.querySelectorAll('[data-done]').forEach(b=>b.addEventListener('click',()=>{
-    if(b.getAttribute('aria-disabled')==='true'){say('Tap Copy & open Nuvio first.',true);return}
+    if(b.getAttribute('aria-disabled')==='true'){say(b.id==='cinemetaDone'?'Tap Add Cinemeta to Nuvio first.':'Tap Copy & open Nuvio first.',true);return}
     const i=+b.dataset.done;done[i]=true;store.set('done',done);buzz();
     openStep(current(),true);
   }));
-  $('#restart').addEventListener('click',()=>{done=[false,false,false];store.set('done',done);store.set('copied',false);setWorked(false);openStep(0,true)});
+  $('#restart').addEventListener('click',()=>{done=[false,false,false,false];store.set('cinemeta',false);$('#cinemetaDone').setAttribute('aria-disabled','true');store.set('comet','');store.set('done',done);store.set('copied',false);setWorked(false);openStep(0,true)});
 
   // Step 2: copy the homepage and open Nuvio
   let homepage=null;
@@ -418,37 +469,74 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   $('#copyOpen').addEventListener('click',()=>copyHomepage(true));
   $('#copyAgain').addEventListener('click',()=>copyHomepage(false));
 
-  // Step 3: Comet link → nuvio:// install link
-  const input=$('#comet'),msg=$('#cometMsg'),install=$('#installComet');
-  function parseLink(v){
-    v=(v||'').trim();
-    if(!v)return {state:'empty'};
-    const m=/^(?:https?|stremio|nuvio):\/\/(.+)$/i.exec(v);
-    if(!m)return {state:'bad',why:"That isn't a link. Go back to Comet and copy it again."};
-    if(/\/configure\/?(\?.*)?$/i.test(m[1]))return {state:'bad',why:"That's the Comet setup page, not your link. Finish Comet and tap Copy Link."};
-    if(!/manifest\.json(\?.*)?$/i.test(m[1]))return {state:'bad',why:'That link should end in manifest.json. Copy it again from Comet.'};
-    return {state:'good',link:'nuvio://'+m[1]};
+  // Step 3: Cinemeta (movie and show info). Nuvio installs an addon from a nuvio:// link.
+  const CINEMETA='v3-cinemeta.strem.io/manifest.json';
+  if(store.get('cinemeta',false))$('#cinemetaDone').setAttribute('aria-disabled','false');
+  $('#addCinemeta').addEventListener('click',async()=>{
+    buzz();store.set('cinemeta',true);$('#cinemetaDone').setAttribute('aria-disabled','false');
+    if(isPhone){say('Opening Nuvio…');location.href='nuvio://'+CINEMETA}
+    else{await copyText('https://'+CINEMETA);say('Copied. In Nuvio open Addons and paste it.')}
+  });
+
+  // Step 4: Real-Debrid key → Comet addon link, checked with Comet before install.
+  // Comet's link is its settings in base64; it fills in defaults for the rest.
+  const COMET='comet.elfhosted.com';
+  const keyIn=$('#rdkey'),keyMsg=$('#keyMsg'),install=$('#installComet'),copyComet=$('#copyCometLink');
+  let comet=null,checkSeq=0,timer;
+  function cleanKey(v){const m=(v||'').replace(/\s+/g,'').match(/[A-Za-z0-9]{20,}/g);return m?m[m.length-1]:''}
+  function cometPath(key){
+    const json=JSON.stringify({debridServices:[{service:'realdebrid',apiKey:key}]});
+    // Keep "/" and "+" out of the base64 so the link is a clean URL path.
+    for(let pad='';pad.length<6;pad+=' '){const b=btoa(json+pad);if(!/[+/]/.test(b))return b}
+    return encodeURIComponent(btoa(json));
   }
-  function check(){
-    const r=parseLink(input.value);
-    input.classList.toggle('bad',r.state==='bad');input.classList.toggle('good',r.state==='good');
-    msg.className='msg '+(r.state==='bad'?'bad':r.state==='good'?'good':'');
-    msg.textContent=r.state==='bad'?r.why:r.state==='good'?'Looks right.':'';
-    install.setAttribute('aria-disabled',String(r.state!=='good'));
-    store.set('comet',r.state==='good'?input.value.trim():'');
-    return r;
+  function setKeyState(state,text,link){
+    keyIn.classList.toggle('bad',state==='bad');keyIn.classList.toggle('good',state==='good'||state==='unknown');
+    keyMsg.className='msg '+(state==='bad'?'bad':state==='good'?'good':'');keyMsg.textContent=text;
+    comet=(state==='good'||state==='unknown')?link:null;
+    install.setAttribute('aria-disabled',String(!comet));copyComet.setAttribute('aria-disabled',String(!comet));
   }
-  input.value=store.get('comet','');check();
-  input.addEventListener('input',check);
-  $('#pasteComet').addEventListener('click',()=>{
+  async function checkKey(){
+    const seq=++checkSeq,raw=keyIn.value,key=cleanKey(raw);
+    store.set('rdkey',key);
+    if(!raw.trim())return setKeyState('empty','');
+    if(!key)return setKeyState('bad',"That isn't a Real-Debrid key. Copy the long code under API private token.");
+    const path=cometPath(key);
+    const link={https:'https://'+COMET+'/'+path+'/manifest.json',nuvio:'nuvio://'+COMET+'/'+path+'/manifest.json'};
+    setKeyState('empty','Checking your key…');
+    const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),20000);
+    try{
+      const r=await fetch('https://'+COMET+'/'+path+'/stream/movie/tt0111161.json',{signal:ctl.signal});
+      const j=await r.json();if(seq!==checkSeq)return;
+      const first=(j.streams||[])[0]||{};
+      if(/❌|\[ERROR\]/.test(first.name||'')){
+        const d=first.description||'';
+        if(/invalid api key/i.test(d))return setKeyState('bad',"That key didn't work. Copy it again from your key page.");
+        if(/subscription|premium/i.test(d))return setKeyState('bad','Your Real-Debrid plan has run out. Renew it on Real-Debrid, then paste the key again.');
+        return setKeyState('bad','Real-Debrid said: '+d.replace(/\s+/g,' ').trim());
+      }
+      setKeyState('good','Key works. Tap Install in Nuvio.',link);
+    }catch(e){
+      if(seq!==checkSeq)return;
+      setKeyState('unknown',"Couldn't check the key right now. You can still install it.",link);
+    }finally{clearTimeout(to)}
+  }
+  keyIn.value=store.get('rdkey','');if(keyIn.value)checkKey();
+  keyIn.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(checkKey,500)});
+  $('#pasteKey').addEventListener('click',()=>{
     if(navigator.clipboard&&navigator.clipboard.readText){
-      navigator.clipboard.readText().then(t=>{input.value=t.trim();check()},()=>{input.focus();say('Hold your finger in the box and tap Paste.')});
-    }else{input.focus();say('Hold your finger in the box and tap Paste.')}
+      navigator.clipboard.readText().then(t=>{keyIn.value=t.trim();checkKey()},()=>{keyIn.focus();say('Hold your finger in the box and tap Paste.')});
+    }else{keyIn.focus();say('Hold your finger in the box and tap Paste.')}
   });
   install.addEventListener('click',async()=>{
-    const r=check();if(r.state!=='good')return;buzz();
-    if(isPhone){say('Opening Nuvio…');location.href=r.link}
-    else{await copyText(input.value.trim());say('Copied. In Nuvio open Addons and paste it.')}
+    if(!comet){say(keyIn.value.trim()?'Wait for the key check to finish.':'Paste your Real-Debrid key first.',true);return}
+    buzz();
+    if(isPhone){say('Opening Nuvio…');location.href=comet.nuvio}
+    else{await copyText(comet.https);say('Copied. In Nuvio open Addons and paste it.')}
+  });
+  copyComet.addEventListener('click',async()=>{
+    if(!comet){say('Paste a working Real-Debrid key in step 4 first.',true);return}
+    buzz();say(await copyText(comet.https)?'Addon link copied.':'Copying was blocked. Try Chrome or Safari.',!comet);
   });
 
   openStep(current(),false);
