@@ -316,8 +316,19 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
       <div class="body"><div><div class="inner">
         <p>Nuvio needs the free Cinemeta addon to open movies and shows. Without it, tapping a title says "Failed to load".</p>
         <button class="btn go" id="addCinemeta">Add Cinemeta to Nuvio</button>
-        <p class="note" style="margin-top:12px">Nuvio opens and adds it. Then come back here.</p>
-        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="2" aria-disabled="true" id="cinemetaDone">Cinemeta is in Nuvio</button></div>
+        <ol class="mini">
+          <li>
+            <h3>Check it's in Nuvio</h3>
+            <p>Nuvio opens on its <b>Addons</b> page. Look for <b>Cinemeta</b> in the list.</p>
+          </li>
+          <li>
+            <h3>Not in the list? Paste it</h3>
+            <p>The link is already copied. Hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>. Wait for <b>Addon Installed</b>.</p>
+            <p class="note">Nuvio opened somewhere else? Go to <b>Profile › Content &amp; Discovery › Addons</b>.</p>
+            <p class="note">Says "This profile uses primary addons"? Switch to your first profile and try again.</p>
+          </li>
+        </ol>
+        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="2" aria-disabled="true" id="cinemetaDone">I see Cinemeta in Addons</button></div>
       </div></div></div>
     </li>
 
@@ -355,11 +366,15 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
             <div class="row">
               <button class="btn go" id="installComet" aria-disabled="true">Install in Nuvio</button>
             </div>
-            <p class="note" style="margin-top:12px">Nuvio opens and adds Comet. Then come back here.</p>
-            <p class="note" style="margin-top:8px">Your key goes only to Comet, never to this website. Don't share it: it's your Real-Debrid account.</p>
+            <p class="note" style="margin-top:12px">Your key goes only to Comet, never to this website. Don't share it: it's your Real-Debrid account.</p>
+          </li>
+          <li>
+            <h3>Check Comet is in Nuvio</h3>
+            <p>Nuvio opens on its <b>Addons</b> page. Look for <b>Comet</b> in the list.</p>
+            <p class="note">Not there? The link is already copied. Hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>. Wait for <b>Addon Installed</b>.</p>
           </li>
         </ol>
-        <div class="row"><button class="btn ok" data-done="3">Comet is in Nuvio</button></div>
+        <div class="row"><button class="btn ok" data-done="3">I see Comet in Addons</button></div>
       </div></div></div>
     </li>
   </ol>
@@ -470,13 +485,16 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   $('#copyOpen').addEventListener('click',()=>copyHomepage(true));
   $('#copyAgain').addEventListener('click',()=>copyHomepage(false));
 
-  // Step 3: Cinemeta (movie and show info). Nuvio installs an addon from a nuvio:// link.
+  // Step 3: Cinemeta (movie and show info). Nuvio installs an addon from a nuvio:// link
+  // and opens its Addons page; the copied https link is the fallback if that fails.
   const CINEMETA='v3-cinemeta.strem.io/manifest.json';
   if(store.get('cinemeta',false))$('#cinemetaDone').setAttribute('aria-disabled','false');
   $('#addCinemeta').addEventListener('click',async()=>{
     buzz();store.set('cinemeta',true);$('#cinemetaDone').setAttribute('aria-disabled','false');
-    if(isPhone){say('Opening Nuvio…');location.href='nuvio://'+CINEMETA}
-    else{await copyText('https://'+CINEMETA);say('Copied. In Nuvio open Addons and paste it.')}
+    // Copy first: if Nuvio doesn't add it from the link, the person pastes it on the Addons page.
+    const ok=await copyText('https://'+CINEMETA);
+    if(isPhone){say('Opening Nuvio…');setTimeout(()=>{location.href='nuvio://'+CINEMETA},500)}
+    else say(ok?'Copied. In Nuvio open Addons and paste it.':'Copying was blocked. Try Chrome or Safari.',!ok);
   });
 
   // Step 4: Real-Debrid key → Comet addon link, checked with Comet before install.
@@ -532,8 +550,9 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   install.addEventListener('click',async()=>{
     if(!comet){say(keyIn.value.trim()?'Wait for the key check to finish.':'Paste your Real-Debrid key first.',true);return}
     buzz();
-    if(isPhone){say('Opening Nuvio…');location.href=comet.nuvio}
-    else{await copyText(comet.https);say('Copied. In Nuvio open Addons and paste it.')}
+    const ok=await copyText(comet.https);
+    if(isPhone){say('Opening Nuvio…');setTimeout(()=>{location.href=comet.nuvio},500)}
+    else say(ok?'Copied. In Nuvio open Addons and paste it.':'Copying was blocked. Try Chrome or Safari.',!ok);
   });
   copyComet.addEventListener('click',async()=>{
     if(!comet){say('Paste a working Real-Debrid key in step 4 first.',true);return}
