@@ -1,9 +1,12 @@
-// Builds public/collections/streaming-services.json in Nuvio's collection import format.
+// Builds Nuvio collection files in Nuvio's collection import format:
+//   public/collections/streaming-services.json  Streaming Services only
+//   public/collections/genres.json              Genres only
+//   public/collections/homepage.json            both (what the site's main button copies)
 // Format taken from Nuvio's own source:
 //   TV:     app/src/main/java/com/nuvio/tv/data/local/CollectionsDataStore.kt (SerializableCollection/Folder/Source)
 //   Mobile: composeApp/src/commonMain/kotlin/com/nuvio/app/features/collection/CollectionModels.kt
-// Sources use Nuvio's built-in TMDB "Discover" with streaming-provider filters,
-// so visitors need no extra addon, API key or account.
+// Every row uses Nuvio's built-in TMDB "Discover", so visitors need no extra
+// addon, API key or account, and nothing depends on a third-party addon server.
 //
 // Run: node tools/build-collection.js
 
@@ -25,14 +28,49 @@ const services = [
 
 // "Latest" rows sort by release date. A minimum vote count keeps
 // unreleased placeholder titles out of the row.
-const rows = [
+const serviceRows = [
   { label: 'Popular Movies', mediaType: 'MOVIE', sortBy: 'popularity.desc' },
   { label: 'Popular Series', mediaType: 'TV',    sortBy: 'popularity.desc' },
   { label: 'Latest Movies',  mediaType: 'MOVIE', sortBy: 'primary_release_date.desc', voteCountGte: 10 },
   { label: 'Latest Series',  mediaType: 'TV',    sortBy: 'first_air_date.desc',       voteCountGte: 10 },
 ];
 
-const collection = {
+// TMDB genre IDs differ between movies and TV. `tv: null` means TMDB has no
+// matching TV genre, so that folder gets movie rows only.
+const genres = [
+  { id: 'action',      title: 'Action',        emoji: '💥', movie: { withGenres: '28' },    tv: { withGenres: '10759' } },
+  { id: 'animation',   title: 'Animation',     emoji: '🎨', movie: { withGenres: '16', withoutKeywords: '210024' }, tv: { withGenres: '16', withoutKeywords: '210024' } },
+  { id: 'anime',       title: 'Anime',         emoji: '🍥', movie: { withGenres: '16', withOriginalLanguage: 'ja' }, tv: { withGenres: '16', withOriginalLanguage: 'ja' } },
+  { id: 'comedy',      title: 'Comedy',        emoji: '😂', movie: { withGenres: '35' },    tv: { withGenres: '35' } },
+  { id: 'documentary', title: 'Documentary',   emoji: '🎥', movie: { withGenres: '99' },    tv: { withGenres: '99' } },
+  { id: 'drama',       title: 'Drama',         emoji: '🎭', movie: { withGenres: '18' },    tv: { withGenres: '18' } },
+  { id: 'family',      title: 'Family',        emoji: '👨‍👩‍👧', movie: { withGenres: '10751' }, tv: { withGenres: '10751' } },
+  { id: 'horror',      title: 'Horror',        emoji: '👻', movie: { withGenres: '27' },    tv: null },
+  { id: 'korean',      title: 'Korean/Kdrama', emoji: '🇰🇷', movie: { withOriginalLanguage: 'ko' }, tv: { withGenres: '18', withOriginalLanguage: 'ko' } },
+  { id: 'mystery',     title: 'Mystery',       emoji: '🔍', movie: { withGenres: '9648' },  tv: { withGenres: '9648' } },
+  { id: 'romance',     title: 'Romance',       emoji: '💘', movie: { withGenres: '10749' }, tv: null },
+  { id: 'sci-fi',      title: 'Sci-Fi',        emoji: '🚀', movie: { withGenres: '878' },   tv: { withGenres: '10765' } },
+  { id: 'thriller',    title: 'Thriller',      emoji: '🔪', movie: { withGenres: '53' },    tv: null },
+];
+
+// "Top Rated" needs a vote floor, otherwise titles with one 10/10 vote win.
+const genreRows = [
+  { label: 'Popular Movies',   mediaType: 'MOVIE', sortBy: 'popularity.desc' },
+  { label: 'Popular Series',   mediaType: 'TV',    sortBy: 'popularity.desc' },
+  { label: 'Top Rated Movies', mediaType: 'MOVIE', sortBy: 'vote_average.desc', voteCountGte: 500 },
+  { label: 'Top Rated Series', mediaType: 'TV',    sortBy: 'vote_average.desc', voteCountGte: 200 },
+];
+
+const tmdbSource = (title, row, filters) => ({
+  provider: 'tmdb',
+  tmdbSourceType: 'DISCOVER',
+  title,
+  mediaType: row.mediaType,
+  sortBy: row.sortBy,
+  filters: row.voteCountGte ? { ...filters, voteCountGte: row.voteCountGte } : filters,
+});
+
+const streamingServices = {
   id: 'nuvio4dummies-streaming-services',
   title: 'Streaming Services',
   pinToTop: false,
@@ -44,25 +82,41 @@ const collection = {
       title: s.title,
       tileShape: 'LANDSCAPE',
       hideTitle: false,
-      sources: rows.map(r => {
-        const filters = { watchRegion: 'US', withWatchProviders: s.providers };
-        if (r.voteCountGte) filters.voteCountGte = r.voteCountGte;
-        return {
-          provider: 'tmdb',
-          tmdbSourceType: 'DISCOVER',
-          title: `${s.title} ${r.label}`,
-          mediaType: r.mediaType,
-          sortBy: r.sortBy,
-          filters,
-        };
-      }),
+      sources: serviceRows.map(r =>
+        tmdbSource(`${s.title} ${r.label}`, r, { watchRegion: 'US', withWatchProviders: s.providers })),
     };
     if (s.art) folder.coverImageUrl = s.art;
     return folder;
   }),
 };
 
-const out = path.join(__dirname, '..', 'public', 'collections', 'streaming-services.json');
-fs.mkdirSync(path.dirname(out), { recursive: true });
-fs.writeFileSync(out, JSON.stringify([collection], null, 2) + '\n');
-console.log('Wrote', path.relative(process.cwd(), out));
+const genreCollection = {
+  id: 'nuvio4dummies-genres',
+  title: 'Genres',
+  pinToTop: false,
+  viewMode: 'TABBED_GRID',
+  showAllTab: true,
+  folders: genres.map(g => ({
+    id: `n4d-genre-${g.id}`,
+    title: g.title,
+    tileShape: 'LANDSCAPE',
+    hideTitle: false,
+    coverEmoji: g.emoji,
+    sources: genreRows
+      .filter(r => (r.mediaType === 'MOVIE' ? g.movie : g.tv))
+      .map(r => tmdbSource(`${g.title} ${r.label}`, r, r.mediaType === 'MOVIE' ? g.movie : g.tv)),
+  })),
+};
+
+const outDir = path.join(__dirname, '..', 'public', 'collections');
+fs.mkdirSync(outDir, { recursive: true });
+const files = {
+  'streaming-services.json': [streamingServices],
+  'genres.json': [genreCollection],
+  'homepage.json': [streamingServices, genreCollection],
+};
+for (const [name, data] of Object.entries(files)) {
+  const out = path.join(outDir, name);
+  fs.writeFileSync(out, JSON.stringify(data, null, 2) + '\n');
+  console.log('Wrote', path.relative(process.cwd(), out));
+}

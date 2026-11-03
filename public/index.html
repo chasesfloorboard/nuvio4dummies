@@ -159,15 +159,16 @@ button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline
   <section class="step">
     <div class="eyebrow">Step 4</div>
     <h2>Install Comet in Nuvio</h2>
-    <p>Return to Nuvio and open its addon management area.</p>
+    <p>Paste your Comet manifest URL, then tap <b>Install in Nuvio</b>. Nuvio opens and adds Comet by itself.</p>
+    <div class="field"><label for="f-comet">Comet manifest URL</label><div class="row"><input id="f-comet" data-store="comet" placeholder="https://comet.elfhosted.com/…/manifest.json" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="secondary" data-paste="comet" type="button">Paste</button></div><span class="saved" data-saved="comet"></span></div>
+    <div class="actions"><button class="primary" data-install="comet" type="button">Install in Nuvio</button></div>
+    <details class="small"><summary>Didn't open Nuvio? Add it by hand</summary>
     <ol>
-      <li>Open Nuvio settings.</li>
-      <li>Find Addons or Add Addon.</li>
-      <li>Choose the option to add an addon by URL.</li>
-      <li>Paste your Comet manifest URL.</li>
-      <li>Follow Nuvio's installation prompts.</li>
-    </ol>
-    <div class="notice">Menu names may vary by Nuvio version and device. Never share your personalized addon URL publicly.</div>
+      <li>In Nuvio, open <b>Settings → Content &amp; Discovery → Addons</b>.</li>
+      <li>Paste your Comet manifest URL into <b>Addon URL</b>.</li>
+      <li>Tap <b>Install</b>.</li>
+    </ol></details>
+    <div class="notice">Your link stays in this browser. It is never sent to this website. Never share it publicly.</div>
   </section>
 
   <section class="step">
@@ -194,14 +195,16 @@ button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline
   <div class="eyebrow">Homepage folders</div>
   <h2>Pick one way to fill your homepage.</h2>
   <p>Both add a Streaming Services collection. Choose one: on the phone app, importing replaces all existing collections, so doing both means the second one wipes the first.</p>
-  <div class="actions"><a class="link primary" href="#streaming-services">Quick · no accounts</a><a class="link secondary" href="#full-setup">Full · services + genres (MDBList)</a></div>
+  <div class="actions"><a class="link primary" href="#streaming-services">Quick · services + genres, no accounts</a><a class="link secondary" href="#full-setup">Full · custom lists (MDBList)</a></div>
+  <p class="small">Quick is the most reliable: it uses TMDB, which is built into Nuvio. Full uses the free AIOMetadata server, which can be slow at busy times.</p>
 </section>
 
 <section class="panel services" id="streaming-services">
   <div class="eyebrow">Option 1 · Quick</div>
   <h2>Netflix, Disney+, Hulu and more, right on your homepage.</h2>
-  <p>This adds a <b>Streaming Services</b> collection to Nuvio with a folder for each service. Every folder has Popular Movies, Popular Series, Latest Movies and Latest Series rows.</p>
+  <p>This adds two collections to Nuvio. <b>Streaming Services</b> has a folder for each service with Popular and Latest rows. <b>Genres</b> has a folder for each genre with Popular and Top Rated rows.</p>
   <div class="chips"><span>Netflix</span><span>Prime Video</span><span>Disney+</span><span>HBO Max</span><span>Apple TV+</span><span>Paramount+</span><span>Hulu</span><span>Peacock</span><span>Crunchyroll</span></div>
+  <div class="chips"><span>Action</span><span>Animation</span><span>Anime</span><span>Comedy</span><span>Documentary</span><span>Drama</span><span>Family</span><span>Horror</span><span>Korean</span><span>Mystery</span><span>Romance</span><span>Sci-Fi</span><span>Thriller</span></div>
   <div class="notice">No extra addon, API key or account needed. The rows use TMDB, which is built into Nuvio. This only organizes what you browse. It doesn't give access to any service's subscription.</div>
 
   <div class="tabs" role="tablist">
@@ -212,15 +215,16 @@ button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline
   <div class="howto" id="how-phone" role="tabpanel" aria-labelledby="tab-phone">
     <div class="notice warning">Importing replaces all collections on this account. Have some you want to keep? Tap the two-squares icon first to copy a backup, or import on a TV instead, which adds without replacing.</div>
     <ol>
-      <li>Tap <b>Copy collection</b> below.</li>
-      <li>Open the Nuvio <b>app</b> and go to <b>Settings → Layout → Collections</b>.</li>
+      <li>Tap <b>Copy &amp; open Nuvio</b>. It copies the folders and opens the app.</li>
+      <li>In Nuvio, go to <b>Settings → Layout → Collections</b>.</li>
       <li>Tap the <b>clipboard icon</b> at the top-right (not the two-squares icon next to it).</li>
-      <li>Paste into the box, then tap <b>Import</b>.</li>
+      <li>Long-press the box, choose <b>Paste</b>, then tap <b>Import</b>.</li>
     </ol>
     <div class="actions">
-      <button class="primary" id="copyJson">Copy collection</button>
-      <a class="link secondary" href="/collections/streaming-services.json" download="streaming-services.json">Download file</a>
+      <button class="primary" id="copyJson">Copy &amp; open Nuvio</button>
+      <a class="link secondary" href="/collections/homepage.json" download="nuvio-homepage.json">Download file</a>
     </div>
+    <p class="small">Only want the services? <a href="#" id="copyServices">Copy Streaming Services only</a>.</p>
   </div>
 
   <div class="howto" id="how-tv" role="tabpanel" aria-labelledby="tab-tv" hidden>
@@ -302,11 +306,10 @@ button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline
     <li data-fs>
       <h3>Add it to Nuvio</h3>
       <ol>
-        <li>Tap <b>Copy Install URL</b> below (or <b>Copy URL</b> in AIOMetadata).</li>
-        <li>In the Nuvio app, open <b>Settings → Content &amp; Discovery → Addons</b>.</li>
-        <li>Paste the link into <b>Addon URL</b> and tap <b>Install</b>.</li>
+        <li>Tap <b>Install in Nuvio</b>. Nuvio opens and adds AIOMetadata by itself.</li>
+        <li>Didn't open? In Nuvio, open <b>Settings → Content &amp; Discovery → Addons</b>, paste the link into <b>Addon URL</b> and tap <b>Install</b>.</li>
       </ol>
-      <div class="copyrow"><button class="secondary" data-copy="install" type="button">Copy Install URL</button></div>
+      <div class="copyrow"><button class="primary" data-install="install" type="button">Install in Nuvio</button><button class="secondary" data-copy="install" type="button">Copy Install URL</button></div>
 
       <label class="donebox"><input type="checkbox"> AIOMetadata shows in my addons</label>
     </li>
@@ -325,7 +328,7 @@ button:focus-visible,.link:focus-visible{outline:3px solid var(--accent);outline
   </ol>
 </section>
 </main>
-<footer>Nuvio 4 Dummies · Independent community setup guide · Not affiliated with Nuvio, Real-Debrid or ElfHosted.<br>Version 2026-11-01c</footer>
+<footer>Nuvio 4 Dummies · Independent community setup guide · Not affiliated with Nuvio, Real-Debrid or ElfHosted.<br>Version 2026-11-02</footer>
 <div class="toast" id="toast" role="status"></div>
 <script>
 // Shared helpers
@@ -335,6 +338,16 @@ function copyText(text,okMsg){
   if(!text){say('Still loading. Try again in a second.');return}
   const fallback=()=>{const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();say(ok?okMsg:'Copy blocked on this browser. Use Download file instead.')};
   if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(()=>say(okMsg),fallback);else fallback();
+}
+
+// Opening the Nuvio app. Nuvio handles nuvio:// links on phones and tablets:
+// nuvio://<addon host>/…/manifest.json installs that addon; any other nuvio://
+// link just opens the app. Desktop browsers have no handler, so skip it there.
+const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function openNuvio(link){if(isPhone)setTimeout(()=>{location.href=link},700)}
+function addonLink(url){
+  const m=/^(?:https?|stremio|nuvio):\/\/(.+)$/i.exec((url||'').trim());
+  return m&&/manifest\.json(\?.*)?$/i.test(m[1])?'nuvio://'+m[1]:null;
 }
 
 // Setup guide: welcome answers skip steps already done
@@ -365,12 +378,16 @@ function copyText(text,okMsg){
 
 // Option 1: Streaming Services collection
 (function(){
-  const path='/collections/streaming-services.json';
+  const path='/collections/homepage.json';
   const url=location.origin+path;
   document.getElementById('importUrl').textContent=url;
-  let json=null;
+  let json=null,servicesJson=null;
   fetch(path).then(r=>r.ok?r.text():null).then(t=>{json=t}).catch(()=>{});
-  document.getElementById('copyJson').onclick=()=>copyText(json,'Copied. Now paste it in Nuvio.');
+  fetch('/collections/streaming-services.json').then(r=>r.ok?r.text():null).then(t=>{servicesJson=t}).catch(()=>{});
+  const copyAndOpen=text=>{if(!text){say('Still loading. Try again in a second.');return}
+    copyText(text,isPhone?'Copied. Opening Nuvio…':'Copied. Now paste it in Nuvio.');openNuvio('nuvio://open')};
+  document.getElementById('copyJson').onclick=()=>copyAndOpen(json);
+  document.getElementById('copyServices').onclick=e=>{e.preventDefault();copyAndOpen(servicesJson)};
   document.getElementById('copyUrl').onclick=()=>copyText(url,'Link copied.');
   const tabs=[['tab-phone','how-phone'],['tab-tv','how-tv']];
   tabs.forEach(([tab,panel])=>document.getElementById(tab).onclick=()=>{
@@ -398,18 +415,18 @@ function copyText(text,okMsg){
   boxes.forEach(b=>b.addEventListener('change',update));update();
 
   // Saved details: kept in this browser only
-  const LABELS={mdblist:'MDBList key',tmdb:'TMDB key',uuid:'UUID',install:'Install URL'};
+  const LABELS={mdblist:'MDBList key',tmdb:'TMDB key',uuid:'UUID',install:'Install URL',comet:'Comet URL'};
   const STORE='n4d-details';
   let details={};
   try{details=JSON.parse(localStorage.getItem(STORE)||'{}')||{}}catch(e){}
   const persist=()=>{try{localStorage.setItem(STORE,JSON.stringify(details))}catch(e){}};
-  const mask=(k,v)=>k==='install'?v.replace(/^(https?:\/\/[^/]+\/).*/,'$1•••'):v.length>8?v.slice(0,4)+'•••'+v.slice(-4):v;
+  const mask=(k,v)=>k==='install'||k==='comet'?v.replace(/^(https?:\/\/[^/]+\/).*/,'$1•••'):v.length>8?v.slice(0,4)+'•••'+v.slice(-4):v;
   function renderVault(){
     const list=document.getElementById('vaultList');list.innerHTML='';
     const keys=Object.keys(LABELS).filter(k=>details[k]);
     if(!keys.length){list.innerHTML='<dt>Nothing saved yet</dt><dd></dd>';}
     keys.forEach(k=>{const dt=document.createElement('dt');dt.textContent=LABELS[k];const dd=document.createElement('dd');dd.textContent=mask(k,details[k]);list.append(dt,dd)});
-    document.querySelectorAll('[data-copy]').forEach(b=>{const has=!!details[b.dataset.copy];b.disabled=!has;b.title=has?'':'Enter it in an earlier step first'});
+    document.querySelectorAll('[data-copy],[data-install]').forEach(b=>{const has=!!details[b.dataset.copy||b.dataset.install];b.disabled=!has;b.title=has?'':'Enter it in an earlier step first'});
   }
   document.querySelectorAll('[data-store]').forEach(input=>{
     const k=input.dataset.store,flag=document.querySelector(`[data-saved="${k}"]`);
@@ -422,6 +439,12 @@ function copyText(text,okMsg){
     else{input.focus();say('Long-press the box and choose Paste.')}
   }));
   document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>copyText(details[b.dataset.copy],LABELS[b.dataset.copy]+' copied.')));
+  document.querySelectorAll('[data-install]').forEach(b=>b.addEventListener('click',()=>{
+    const v=details[b.dataset.install],link=addonLink(v);
+    if(!link){say('That link should end in manifest.json. Copy it again.');return}
+    if(isPhone){say('Opening Nuvio…');location.href=link}
+    else copyText(v,'Copied. Open Nuvio on this computer and paste it in Addons.');
+  }));
   document.getElementById('vaultCopy').addEventListener('click',()=>{
     const lines=Object.keys(LABELS).filter(k=>details[k]).map(k=>LABELS[k]+': '+details[k]);
     if(!lines.length){say('Nothing saved yet.');return}

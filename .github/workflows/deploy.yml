@@ -17,8 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check the collection still imports into Nuvio
-        run: node tools/validate-collection.js public/collections/streaming-services.json
+      - name: Check the collections still import into Nuvio
+        run: |
+          node tools/build-collection.js
+          git diff --exit-code public/collections || { echo "Collections are out of date: run node tools/build-collection.js and commit"; exit 1; }
+          for f in public/collections/*.json; do node tools/validate-collection.js "$f"; done
 
       - uses: google-github-actions/auth@v2
         with:

@@ -3,8 +3,9 @@
 Beginner setup guide for Nuvio, served on Google Cloud Run.
 
 - `public/index.html` – the site
-- `public/collections/streaming-services.json` – Nuvio collection (built by `node tools/build-collection.js`)
-- `public/full-setup/` – shared AIOMetadata files (setup + collections export, API keys excluded)
+- `public/collections/` – Nuvio collections, built by `node tools/build-collection.js`:
+  `homepage.json` (services + genres, what the site's main button copies), `streaming-services.json`, `genres.json`
+- `public/full-setup/` – optional shared AIOMetadata files (setup + collections export, API keys excluded); the Full steps that need them stay hidden until they exist
 - `tools/validate-collection.js` – checks a collection against Nuvio's import rules
 
 Pushing to `main` redeploys the site automatically (Cloud Run continuous deployment).
