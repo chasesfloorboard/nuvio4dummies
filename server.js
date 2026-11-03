@@ -42,7 +42,10 @@ http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-Type': types[ext] || 'application/octet-stream',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      // Nuvio TV's "Manage from phone" page fetches the collections link from
+      // the phone's browser, which needs permission to read it cross-site.
+      'Access-Control-Allow-Origin': '*'
     });
     res.end(data);
   });

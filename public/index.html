@@ -154,6 +154,10 @@ details.fire .addr{display:block;background:#070d18;border:1px solid var(--edge)
 @media (prefers-reduced-motion:reduce){details.fire>summary::after{transition:none}}
 details.tv{margin-top:28px;color:var(--dim);font-size:15px}
 details.tv summary{cursor:pointer;padding:10px 0;min-height:44px}
+details.tv .then{margin-top:10px}
+details.tv .then{color:var(--ink)}
+details.tv .btn{margin-top:2px}
+details.fire a,details.tv a{color:var(--sky)}
 details.tv code{display:block;background:#070d18;border:1px solid var(--edge);border-radius:var(--r-sm);padding:12px;color:var(--ink);word-break:break-all;margin:8px 0;font-size:14px}
 footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max-width:560px;margin:0 auto}
 
@@ -204,7 +208,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
               <li><p class="lead">Let Downloader install apps</p>
                 <div class="path"><i>Settings</i><em>›</em><i>My Fire TV</i><em>›</em><i>Developer options</i><em>›</em><i>Install unknown apps</i></div>
                 <p>Turn <b>Downloader</b> on.</p>
-                <p class="note">No Developer options? Go to <b>Settings › My Fire TV › About</b>, then press the middle button on <b>Fire TV Stick</b> 7 times until it says you're a developer. Then go back and it will be there.</p></li>
+                <p class="note">No Developer options? Go to <b>Settings › My Fire TV › About</b>, then press the middle button 7 times on the first line (your Fire TV&rsquo;s name, like <b>Fire TV Stick 4K</b>) until it says you're a developer. Then go back and it will be there.</p></li>
               <li><p class="lead">Open Downloader and type this address</p>
                 <code class="addr" id="fireUrl">/tv</code>
                 <p>Press <b>Go</b>. If Downloader asks for access to files, choose <b>Allow</b>.</p></li>
@@ -212,7 +216,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
                 <p>Wait for the download to finish, then choose <b>Install</b> and <b>Open</b>.</p>
                 <p class="note">Afterwards Downloader offers to delete the install file. Choose <b>Delete</b> to free up space; Nuvio stays installed.</p></li>
               <li><p class="lead">Set up your homepage on the TV</p>
-                <p>Follow <b>Setting up a TV instead?</b> at the bottom of this page.</p></li>
+                <p>Follow <a href="#tv" id="toTv">Setting up Nuvio on a TV</a> at the bottom of this page. You do it from your phone, no typing on the remote.</p></li>
             </ol>
           </div>
         </details>
@@ -320,11 +324,22 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     <button class="quiet" id="restart">Start over</button>
   </div>
 
-  <details class="tv">
-    <summary>Setting up a TV instead?</summary>
-    <p>In the Nuvio TV app, open Settings › Collections › Import, choose URL and type this link:</p>
-    <code id="tvUrl">/collections/homepage.json</code>
-    <p>For Comet on a TV, add it in Settings › Addons by typing your Comet link.</p>
+  <details class="tv" id="tv">
+    <summary>Setting up Nuvio on a TV</summary>
+    <p>You set the TV up from your phone. Keep the phone and the TV on the same Wi-Fi.</p>
+    <ol class="then">
+      <li><p class="lead">On the TV, go to</p>
+        <div class="path"><i>Settings</i><em>›</em><i>Content &amp; Discovery</i><em>›</em><i>Addons</i><em>›</em><i>Manage from phone</i></div></li>
+      <li><p class="lead">Scan the QR code on the TV with your phone's camera</p>
+        <p>A Nuvio page opens on your phone.</p></li>
+      <li><p class="lead">Add your homepage</p>
+        <p>On that page, tap <b>Collections</b>, then <b>Import</b>, then <b>URL</b>. Paste this link and tap <b>Import</b>:</p>
+        <code id="tvUrl">/collections/homepage.json</code>
+        <button class="btn plain" id="copyTvUrl" type="button">Copy link</button>
+        <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV.</p></li>
+      <li><p class="lead">Add Comet</p>
+        <p>On the same page, tap <b>Addons</b> and paste your Comet link (from step 3) under <b>Add addon by URL</b>. Tap <b>Add</b>, then <b>Save Changes</b>, and choose <b>Confirm</b> on the TV.</p></li>
+    </ol>
   </details>
 </main>
 <footer>Independent community guide. Not affiliated with Nuvio, Real-Debrid or ElfHosted. Homepage rows use US streaming availability from TMDB.</footer>
@@ -350,6 +365,8 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   }
   $('#tvUrl').textContent=location.origin+'/collections/homepage.json';
   $('#fireUrl').textContent=location.host+'/tv';
+  $('#copyTvUrl').addEventListener('click',async()=>{buzz();say(await copyText($('#tvUrl').textContent)?'Link copied.':'Hold your finger on the link to copy it.')});
+  $('#toTv').addEventListener('click',e=>{e.preventDefault();const d=$('#tv');d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})});
 
   function copyText(text){
     return new Promise(resolve=>{
@@ -377,6 +394,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   function openStep(i,scroll){open=i;render();if(scroll&&i!=null)setTimeout(()=>steps[i].scrollIntoView({behavior:'smooth',block:'start'}),120)}
   steps.forEach((li,i)=>li.querySelector('.head').addEventListener('click',()=>openStep(open===i?null:i)));
   document.querySelectorAll('[data-done]').forEach(b=>b.addEventListener('click',()=>{
+    if(b.getAttribute('aria-disabled')==='true'){say('Tap Copy & open Nuvio first.',true);return}
     const i=+b.dataset.done;done[i]=true;store.set('done',done);buzz();
     openStep(current(),true);
   }));
