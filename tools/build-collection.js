@@ -73,7 +73,6 @@ const tmdbSource = (title, row, filters) => ({
 const streamingServices = {
   id: 'nuvio4dummies-streaming-services',
   title: 'Streaming Services',
-  pinToTop: false,
   viewMode: 'TABBED_GRID',
   showAllTab: true,
   folders: services.map(s => {
@@ -81,7 +80,6 @@ const streamingServices = {
       id: `n4d-${s.id}`,
       title: s.title,
       tileShape: 'LANDSCAPE',
-      hideTitle: false,
       sources: serviceRows.map(r =>
         tmdbSource(`${s.title} ${r.label}`, r, { watchRegion: 'US', withWatchProviders: s.providers })),
     };
@@ -93,14 +91,12 @@ const streamingServices = {
 const genreCollection = {
   id: 'nuvio4dummies-genres',
   title: 'Genres',
-  pinToTop: false,
   viewMode: 'TABBED_GRID',
   showAllTab: true,
   folders: genres.map(g => ({
     id: `n4d-genre-${g.id}`,
     title: g.title,
     tileShape: 'LANDSCAPE',
-    hideTitle: false,
     coverEmoji: g.emoji,
     sources: genreRows
       .filter(r => (r.mediaType === 'MOVIE' ? g.movie : g.tv))
@@ -117,6 +113,10 @@ const files = {
 };
 for (const [name, data] of Object.entries(files)) {
   const out = path.join(outDir, name);
-  fs.writeFileSync(out, JSON.stringify(data, null, 2) + '\n');
+  // Minified on purpose: Samsung's keyboard cuts pasted text at 20,000
+  // characters, so homepage.json must stay under that (guard at 19,000).
+  const text = JSON.stringify(data);
+  if (name === 'homepage.json' && text.length > 19000) throw new Error(`homepage.json is ${text.length} chars; keep it under 19000`);
+  fs.writeFileSync(out, text + '\n');
   console.log('Wrote', path.relative(process.cwd(), out));
 }
