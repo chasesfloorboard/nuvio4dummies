@@ -143,6 +143,15 @@ h1{font-size:clamp(34px,9vw,46px);line-height:1.05;letter-spacing:-1.2px;margin:
 .finish h2{font-size:28px;margin:0 0 6px;letter-spacing:-.6px}
 .finish p{color:var(--dim);margin:0 0 6px}
 
+details.fire{margin-top:18px;border:1px solid var(--edge);border-radius:var(--r-sm);background:#0b1424}
+details.fire>summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center;padding:12px 14px;min-height:48px;font-weight:600}
+details.fire>summary::-webkit-details-marker{display:none}
+details.fire>summary::after{content:"";margin-left:auto;flex:none;width:9px;height:9px;border-right:2.5px solid var(--dim);border-bottom:2.5px solid var(--dim);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+details.fire[open]>summary::after{transform:rotate(225deg) translateY(-1px)}
+details.fire .fbody{padding:0 14px 16px}
+details.fire .then{margin-top:16px}
+details.fire .addr{display:block;background:#070d18;border:1px solid var(--edge);border-radius:var(--r-sm);padding:12px;font-size:19px;font-weight:700;letter-spacing:.01em;color:var(--ink);word-break:break-all}
+@media (prefers-reduced-motion:reduce){details.fire>summary::after{transition:none}}
 details.tv{margin-top:28px;color:var(--dim);font-size:15px}
 details.tv summary{cursor:pointer;padding:10px 0;min-height:44px}
 details.tv code{display:block;background:#070d18;border:1px solid var(--edge);border-radius:var(--r-sm);padding:12px;color:var(--ink);word-break:break-all;margin:8px 0;font-size:14px}
@@ -184,6 +193,29 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
           <button class="btn plain" data-done="0">I have Nuvio</button>
         </div>
         <p class="note" style="margin-top:12px">No account needed. If Nuvio asks you to sign in, you can tap <b>Continue Without Account</b>, or make an account so your setup follows you to other devices.</p>
+
+        <details class="fire">
+          <summary>Can't find Nuvio on your smart TV? Here's how to get it on a Firestick</summary>
+          <div class="fbody">
+            <p class="note">Most smart TVs (Samsung, LG, Roku) can't run Nuvio. A Fire TV Stick plugged into the TV can. These steps use your Fire TV remote.</p>
+            <ol class="then">
+              <li><p class="lead">Install the Downloader app</p>
+                <p>On the Fire TV home screen, go to <b>Find</b> (the magnifying glass), search <b>Downloader</b> and install the one with the orange icon.</p></li>
+              <li><p class="lead">Let Downloader install apps</p>
+                <div class="path"><i>Settings</i><em>›</em><i>My Fire TV</i><em>›</em><i>Developer options</i><em>›</em><i>Install unknown apps</i></div>
+                <p>Turn <b>Downloader</b> on.</p>
+                <p class="note">No Developer options? Go to <b>Settings › My Fire TV › About</b>, then press the middle button on <b>Fire TV Stick</b> 7 times until it says you're a developer. Then go back and it will be there.</p></li>
+              <li><p class="lead">Open Downloader and type this address</p>
+                <code class="addr" id="fireUrl">/tv</code>
+                <p>Press <b>Go</b>. If Downloader asks for access to files, choose <b>Allow</b>.</p></li>
+              <li><p class="lead">Install Nuvio</p>
+                <p>Wait for the download to finish, then choose <b>Install</b> and <b>Open</b>.</p>
+                <p class="note">Afterwards Downloader offers to delete the install file. Choose <b>Delete</b> to free up space; Nuvio stays installed.</p></li>
+              <li><p class="lead">Set up your homepage on the TV</p>
+                <p>Follow <b>Setting up a TV instead?</b> at the bottom of this page.</p></li>
+            </ol>
+          </div>
+        </details>
       </div></div></div>
     </li>
 
@@ -317,6 +349,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     }catch(e){$('#qr').remove()}
   }
   $('#tvUrl').textContent=location.origin+'/collections/homepage.json';
+  $('#fireUrl').textContent=location.host+'/tv';
 
   function copyText(text){
     return new Promise(resolve=>{

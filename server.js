@@ -6,6 +6,16 @@ const root = path.join(__dirname, 'public');
 
 http.createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+
+  // Short address for typing into Downloader on a Fire TV: sends the latest
+  // official Nuvio TV release (32-bit build, runs on every Fire TV device).
+  if (pathname.replace(/\/+$/, '').toLowerCase() === '/tv') {
+    res.writeHead(302, {
+      Location: 'https://github.com/NuvioMedia/NuvioTV/releases/latest/download/app-full-armeabi-v7a-release.apk',
+      'Cache-Control': 'no-cache'
+    });
+    return res.end();
+  }
   const file = path.join(root, pathname === '/' ? 'index.html' : pathname);
 
   if (!file.startsWith(root + path.sep) && file !== path.join(root, 'index.html')) {
