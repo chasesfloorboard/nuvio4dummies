@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a1322">
-<meta name="description" content="Set up Nuvio in four steps: streaming services and genres on your homepage, and shows that play.">
+<meta name="description" content="Set up Nuvio in four steps on Android or iPhone: streaming services and genres on your homepage, and shows that play.">
 <title>Nuvio 4 Dummies</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%2338bdf8%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a855f7%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M12 9l11 7-11 7z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,6 +112,8 @@ h1{font-size:clamp(34px,9vw,46px);line-height:1.05;letter-spacing:-1.2px;margin:
 .mock .box{background:#1d1e22;border:1px solid #2b2d33;border-radius:12px;height:74px;padding:10px 12px;color:#777c86;font-size:14px;position:relative}
 .mock .paste{position:absolute;left:10px;top:30px;background:#e8e9ec;color:#16171a;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;box-shadow:0 6px 16px #0008}
 .mock .paste .ring{border-radius:999px}
+.mock .box.hint{display:flex;align-items:center;justify-content:center;color:#c9ccd3;font-style:italic;font-size:15px;pointer-events:none}
+.mock .box.hint .ring{inset:-5px;border-radius:15px}
 .mock .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .mock .btns span{border-radius:12px;padding:9px;text-align:center;font-size:14px;font-weight:700;background:#26272c;color:#ddd}
 .mock .btns span.imp{background:#f2f2f2;color:#111;position:relative}
@@ -168,7 +170,18 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.bad{background:#fde2e2;color:#3b0808}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.need{margin:10px 0 12px;padding-left:1.2em}.need li{margin:6px 0;line-height:1.45}
+.need-box{margin:-8px 0 24px;padding:12px 14px;border-radius:var(--r-md);background:#1d1a0e;border:1px solid #4a3d12;color:#f5e3a8;font-size:15px}
+.need-box b{color:#fff3c4}
+details.help{margin-top:14px;font-size:15px;color:var(--dim)}
+details.help>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--sky);font-weight:600;list-style:none}
+details.help>summary::-webkit-details-marker{display:none}
+details.help>summary::after{content:"";margin-left:8px;width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+details.help[open]>summary::after{transform:rotate(225deg)}
+details.help ul{margin:2px 0 0;padding-left:1.2em;display:grid;gap:8px}
+details.help b{color:var(--ink)}
+.link{all:unset;color:var(--sky);text-decoration:underline;cursor:pointer}
+.link:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.btn .n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ffffff2e;font-size:15px}
 </style>
 </head>
 <body>
@@ -179,7 +192,8 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   </div>
 
   <h1>Set up Nuvio in four steps.</h1>
-  <p class="lede">Netflix, Disney+, Hulu and seven more services, thirteen genres, and shows that actually play. Do this on the Android phone or tablet you'll watch on, or follow the TV guide.</p>
+  <p class="lede">Netflix, Disney+, Hulu and more on your homepage, and shows that actually play. Do this on the phone or tablet you'll watch on.</p>
+  <p class="need-box"><b>You'll need a paid Real-Debrid plan</b>, a few dollars a month. It's what plays the shows. Everything else here is free.</p>
 
   <div class="onphone" id="onphone">
     <canvas id="qr" width="96" height="96" aria-label="QR code for this page"></canvas>
@@ -196,31 +210,57 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
       </button>
       <div class="body"><div><div class="inner">
         <div class="only-android">
-          <p>Nuvio isn't in the Play Store. You install it straight from Nuvio's official download.</p>
+          <p>Nuvio isn't in the Play Store. This button gets it from Nuvio's official download.</p>
           <a class="btn go" href="/android" id="getAndroid">Download Nuvio</a>
           <ol class="then">
-            <li><p class="lead">If Chrome warns "File might be harmful", tap Download anyway</p></li>
-            <li><p class="lead">When it finishes, tap Open</p>
-              <p class="note">Missed it? Open your <b>Files</b> or <b>Downloads</b> app and tap the Nuvio file.</p></li>
-            <li><p class="lead">If your phone says it can't install unknown apps</p>
-              <p>Tap <b>Settings</b>, turn on <b>Allow from this source</b>, then go back.</p></li>
-            <li><p class="lead">Tap Install, then Open</p>
-              <p class="note">If Play Protect warns you, tap <b>More details</b>, then <b>Install anyway</b>.</p></li>
+            <li><p class="lead">Tap Download anyway, then Open</p>
+              <p class="note">Chrome warns about every app from outside the Play Store.</p></li>
+            <li><p class="lead">Allow it, then tap Install and Open</p>
+              <p class="note">If your phone asks, tap <b>Settings</b>, turn on <b>Allow from this source</b> and go back.</p></li>
             <li><p class="lead">Make your profile</p>
-              <p>When Nuvio shows <b>Who's watching?</b> with nobody there, tap <b>Manage Profiles</b>, then <b>Add Profile</b>. Type any name and tap <b>Create Profile</b> at the bottom.</p></li>
+              <p>Tap <b>Continue Without Account</b> (or sign in). On <b>Who's watching?</b>, tap <b>Manage Profiles</b>, <b>Add Profile</b>, type a name and tap <b>Create Profile</b>.</p></li>
           </ol>
-          <p class="note warn" style="margin-top:16px">Samsung phone says the app was blocked? Turn off <b>Auto Blocker</b> in <b>Settings › Security and privacy</b>, install Nuvio, then you can turn it back on.</p>
-          <p class="note" style="margin-top:12px">No account needed. When Nuvio asks you to sign in, you can tap <b>Continue Without Account</b>, or make an account so your setup follows you to other devices.</p>
+          <details class="help">
+            <summary>Didn't work?</summary>
+            <ul>
+              <li>Missed <b>Open</b>? Open your <b>Files</b> or <b>Downloads</b> app and tap the Nuvio file.</li>
+              <li>Play Protect warning? Tap <b>More details</b>, then <b>Install anyway</b>.</li>
+              <li>Samsung says the app was blocked? Turn off <b>Auto Blocker</b> in <b>Settings › Security and privacy</b>, install Nuvio, then turn it back on.</li>
+              <li>"App not installed" or "conflicts with an existing package"? You have Nuvio from somewhere else. Uninstall it, then tap Download Nuvio again.</li>
+            </ul>
+          </details>
           <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
         </div>
 
         <div class="only-ios">
-          <p class="note warn"><b>Nuvio isn't available for iPhone or iPad right now.</b> It isn't in the App Store, and its iPhone test version is closed.</p>
-          <p style="margin-top:14px">You can still use your iPhone to put Nuvio on your TV with a Fire TV Stick. Open the guide below.</p>
+          <p>Nuvio isn't in the App Store. On iPhone and iPad you install it with <b>AltStore</b>, a free app for installing apps from outside the App Store. It takes about 20 minutes and a Windows PC or Mac, once.</p>
+          <ol class="then">
+            <li><p class="lead">Put AltStore on your iPhone</p>
+              <p>On your computer, open <b>altstore.io</b> and follow its steps for Windows or Mac. It installs AltStore on your iPhone over the cable.</p>
+              <a class="btn plain" href="https://altstore.io/" target="_blank" rel="noopener">Open altstore.io</a></li>
+            <li><p class="lead">Add Nuvio to AltStore</p>
+              <button class="btn go" id="addSource" type="button">Add Nuvio to AltStore</button>
+              <p class="note">Nothing happened? In AltStore tap <b>Sources</b>, then <b>+</b>, paste the link (it's already copied) and tap <b>Add</b>.</p></li>
+            <li><p class="lead">Install Nuvio</p>
+              <p>In AltStore, open <b>Browse</b>, find <b>Nuvio</b> and tap <b>Free</b>. Then open Nuvio from your home screen.</p></li>
+            <li><p class="lead">Make your profile</p>
+              <p>Tap <b>Continue Without Account</b> (or sign in). On <b>Who's watching?</b>, tap <b>Manage Profiles</b>, <b>Add Profile</b>, type a name and tap <b>Create Profile</b>.</p></li>
+          </ol>
+          <p class="note warn" style="margin-top:16px"><b>Every 7 days:</b> open AltStore and tap <b>Refresh All</b>, with your computer on and AltServer running on the same Wi-Fi. If you skip it, Nuvio stops opening until you refresh.</p>
+          <details class="help">
+            <summary>Didn't work?</summary>
+            <ul>
+              <li>iPhone says "Untrusted Developer"? Go to <b>Settings › General › VPN &amp; Device Management</b>, tap your Apple ID and tap <b>Trust</b>.</li>
+              <li>AltStore or Nuvio won't open and asks for Developer Mode? Turn it on in <b>Settings › Privacy &amp; Security › Developer Mode</b> and restart the iPhone.</li>
+              <li>Using SideStore instead of AltStore? <button class="link" id="addSideSource" type="button">Add Nuvio to SideStore</button>.</li>
+              <li>Needs iOS 16.1 or newer.</li>
+            </ul>
+          </details>
+          <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
         </div>
 
         <div class="only-desktop">
-          <p>Nuvio is set up on an Android phone or tablet. Scan the code at the top with your phone, and this page opens there with a download button.</p>
+          <p>Nuvio is set up on a phone or tablet. Scan the code at the top with your phone, and this page opens there with the right download for it.</p>
           <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
         </div>
 
@@ -261,7 +301,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>One button copies everything and opens Nuvio. Then you paste it in.</p>
+        <p>One button copies your homepage and opens Nuvio. Then you paste it in.</p>
         <button class="btn go" id="copyOpen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h2"/></svg>
           Copy &amp; open Nuvio
@@ -291,15 +331,20 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
             <div class="mock dialog" aria-label="Nuvio's Import Collections box with the Paste bubble highlighted, then the Import button.">
               <h4>Import Collections</h4>
               <p class="sub">Paste your collections JSON below.</p>
-              <div class="box">JSON<span class="paste">Paste<span class="ring"></span></span></div>
+              <div class="box hint">Paste the text here<span class="ring"></span></div>
               <div class="btns"><span>Cancel</span><span class="imp">Import</span></div>
             </div>
-            <p class="note">Box still empty? Wait a second and tap Paste again.</p>
           </li>
         </ol>
 
-        <p class="note warn" style="margin-top:18px">Importing replaces any collections already in this Nuvio profile.</p>
-        <p class="note warn">Rows say "Add a TMDB API key in Settings"? That Nuvio is an old or unofficial copy. Uninstall it, install it again with the Download Nuvio button in step 1, then do this step again.</p>
+        <details class="help">
+          <summary>Didn't work?</summary>
+          <ul>
+            <li>Box still empty, or it says "Invalid JSON"? Come back, tap <b>Copy again</b>, then paste again.</li>
+            <li>Rows say "Add a TMDB API key in Settings"? That Nuvio is old or unofficial. Uninstall it, install it again from step 1, then redo this step.</li>
+            <li>Importing replaces any collections already in this profile.</li>
+          </ul>
+        </details>
         <div class="row two">
           <button class="btn ok" data-done="1" aria-disabled="true" id="worked">It worked</button>
           <button class="btn plain" id="copyAgain">Copy again</button>
@@ -311,57 +356,19 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     <li class="step" data-step="2">
       <button class="head" aria-expanded="false">
         <span class="num"><b>3</b></span>
-        <span class="title">Add movie and show info<small>One tap, free</small></span>
+        <span class="title">Connect Real-Debrid<small>Paid, a few dollars a month</small></span>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>Nuvio needs the free Cinemeta addon to open movies and shows. Without it, tapping a title says "Failed to load".</p>
-        <button class="btn go" id="addCinemeta">Add Cinemeta to Nuvio</button>
-        <ol class="mini">
-          <li>
-            <h3>Check it's in Nuvio</h3>
-            <p>Nuvio opens on its <b>Addons</b> page. Look for <b>Cinemeta</b> in the list.</p>
-            <p class="note">Not there yet? Close Nuvio all the way (swipe it away from your recent apps), open it again and check <b>Profile › Content &amp; Discovery › Addons</b>.</p>
-          </li>
-          <li>
-            <h3>Still not there? Paste it</h3>
-            <p>The link is already copied. Hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>. Wait for <b>Addon Installed</b>.</p>
-            <p class="note">Nuvio opened somewhere else? Go to <b>Profile › Content &amp; Discovery › Addons</b>.</p>
-            <p class="note">Says "This profile uses primary addons"? Switch to your first profile and try again.</p>
-          </li>
-        </ol>
-        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="2" aria-disabled="true" id="cinemetaDone">I see Cinemeta in Addons</button></div>
-      </div></div></div>
-    </li>
-
-    <!-- Step 4 -->
-    <li class="step" data-step="3">
-      <button class="head" aria-expanded="false">
-        <span class="num"><b>4</b></span>
-        <span class="title">Make shows play<small>Needs a paid Real-Debrid plan</small></span>
-        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="body"><div><div class="inner">
-        <p>Your homepage shows what's out there. To press play, you need <b>both</b> of these:</p>
-        <ul class="need">
-          <li><b>Real-Debrid</b>: a paid plan, a few dollars a month. This is what actually plays the movie.</li>
-          <li><b>Comet</b>: free. It finds the movie and hands it to Real-Debrid. We set it up for you below.</li>
-        </ul>
-        <p class="note warn">Comet doesn't work on its own. Without an active Real-Debrid plan, nothing will play.</p>
-        <ol class="mini">
-          <li>
-            <h3>Get Real-Debrid</h3>
-            <p>Make an account and buy a plan. A free account isn't enough. Already have a plan? Skip this.</p>
-            <a class="btn plain" href="https://real-debrid.com/" target="_blank" rel="noopener">Open Real-Debrid</a>
-          </li>
-          <li>
-            <h3>Copy your Real-Debrid key</h3>
-            <p>This opens your key page. Hold your finger on the long code under <b>API private token</b>, tap <b>Select all</b>, then <b>Copy</b>.</p>
-            <a class="btn plain" href="https://real-debrid.com/apitoken" target="_blank" rel="noopener">Open my key page</a>
-            <p class="note">Page says <b>403-Forbidden</b>? You're not logged in. Tap <b>Login</b> at the top, sign in, then tap the button above again.</p>
-          </li>
-          <li>
-            <h3>Paste it here</h3>
+        <p>Real-Debrid is what actually plays the shows. You need a paid plan; a free account plays nothing.</p>
+        <ol class="then">
+          <li><p class="lead">Get a plan</p>
+            <p class="note">Already have one? Skip to b.</p>
+            <a class="btn plain" href="https://real-debrid.com/" target="_blank" rel="noopener">Open Real-Debrid</a></li>
+          <li><p class="lead">Copy your key</p>
+            <p>On your key page, hold your finger on the long code under <b>API private token</b>, tap <b>Select all</b>, then <b>Copy</b>.</p>
+            <a class="btn plain" href="https://real-debrid.com/apitoken" target="_blank" rel="noopener">Open my key page</a></li>
+          <li><p class="lead">Paste it here</p>
             <div class="field">
               <label for="rdkey">Real-Debrid key</label>
               <div class="inrow">
@@ -370,19 +377,43 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
               </div>
               <p class="msg" id="keyMsg" aria-live="polite"></p>
             </div>
-            <div class="row">
-              <button class="btn go" id="installComet" aria-disabled="true">Install in Nuvio</button>
-            </div>
-            <p class="note" style="margin-top:12px">Your key goes only to Comet, never to this website. Don't share it: it's your Real-Debrid account.</p>
-          </li>
-          <li>
-            <h3>Check Comet is in Nuvio</h3>
-            <p>Nuvio opens on its <b>Addons</b> page. Look for <b>Comet</b> in the list.</p>
-            <p class="note">Not there yet? Close Nuvio all the way (swipe it away from your recent apps), open it again and check <b>Profile › Content &amp; Discovery › Addons</b>.</p>
-            <p class="note">Still not there? The link is already copied. Hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>. Wait for <b>Addon Installed</b>.</p>
-          </li>
+            <p class="note">Your key is checked with Comet and never sent to this website.</p></li>
         </ol>
-        <div class="row"><button class="btn ok" data-done="3">I see Comet in Addons</button></div>
+        <details class="help">
+          <summary>Didn't work?</summary>
+          <ul>
+            <li>Key page says <b>403-Forbidden</b>? You're not logged in. Tap <b>Login</b> at the top, sign in, then open the key page again.</li>
+            <li>Don't share your key: it's your Real-Debrid account.</li>
+          </ul>
+        </details>
+        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="2" aria-disabled="true" id="keyDone">My key works</button></div>
+      </div></div></div>
+    </li>
+
+    <!-- Step 4 -->
+    <li class="step" data-step="3">
+      <button class="head" aria-expanded="false">
+        <span class="num"><b>4</b></span>
+        <span class="title">Add your addons<small>Two taps, free</small></span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="body"><div><div class="inner">
+        <p><b>Cinemeta</b> opens movies and shows. <b>Comet</b> finds them and plays them through your Real-Debrid. Tap each one; Nuvio opens and adds it. Come back here after each.</p>
+        <div class="row">
+          <button class="btn go" id="addCinemeta" type="button"><span class="n">1</span> Add Cinemeta</button>
+          <button class="btn go" id="installComet" type="button" aria-disabled="true"><span class="n">2</span> Add Comet</button>
+        </div>
+        <p class="msg" id="cometMsg" style="margin-top:8px">Add Comet unlocks once your key works in step 3.</p>
+        <p style="margin-top:6px">Then check both are listed in Nuvio under <b>Profile › Content &amp; Discovery › Addons</b>.</p>
+        <details class="help">
+          <summary>Not in the list?</summary>
+          <ul>
+            <li>Close Nuvio all the way (swipe it away from your recent apps), open it again and check the list.</li>
+            <li>Still missing? Tap its button here again (that copies its link). Then on Nuvio's Addons page, hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>.</li>
+            <li>Says "This profile uses primary addons"? Switch to your first profile and try again.</li>
+          </ul>
+        </details>
+        <div class="row" style="margin-top:16px"><button class="btn ok" data-done="3" aria-disabled="true" id="addonsDone">I see both in Addons</button></div>
       </div></div></div>
     </li>
   </ol>
@@ -408,7 +439,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
         <button class="btn plain" id="copyTvUrl" type="button">Copy link</button>
         <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV. Your Streaming Services and Genres rows appear on the TV's Home, below Nuvio's own rows.</p></li>
       <li><p class="lead">Add Comet</p>
-        <p>Do step 4 on your phone first, up to a key that works. Then tap <b>Copy addon link</b>:</p>
+        <p>Do step 3 on your phone first, up to a key that works. Then tap <b>Copy addon link</b>:</p>
         <button class="btn plain" id="copyCometLink" type="button" aria-disabled="true">Copy addon link</button>
         <p>On the Nuvio page, tap <b>Addons</b>, paste it under <b>Add addon by URL</b> and tap <b>Add</b>. Then <b>Save Changes</b>, and <b>Confirm</b> on the TV.</p></li>
     </ol>
@@ -429,7 +460,6 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   document.documentElement.classList.add(isIOS?'ios':isPhone?'android':'desktop');
-  if(isIOS)$('details.fire').open=true;
   if(!isPhone){
     $('#onphone').classList.add('show');
     try{const q=qrcode(0,'M');q.addData(location.origin+'/');q.make();
@@ -454,6 +484,8 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   // Steps: one open at a time, progress remembered on this device.
   const steps=[...document.querySelectorAll('.step')];
   let done=store.get('done',[]);done=[0,1,2,3].map(i=>!!done[i]);
+  // Version 2 swapped steps 3 and 4 (Real-Debrid now comes before the addons).
+  if(store.get('v',1)<2){if(!(done[2]&&done[3]))done[2]=done[3]=false;store.set('done',done);store.set('v',2)}
   let open=null;
   function current(){const i=done.indexOf(false);return i<0?null:i}
   function render(){
@@ -469,11 +501,21 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   function openStep(i,scroll){open=i;render();if(scroll&&i!=null)setTimeout(()=>steps[i].scrollIntoView({behavior:'smooth',block:'start'}),120)}
   steps.forEach((li,i)=>li.querySelector('.head').addEventListener('click',()=>openStep(open===i?null:i)));
   document.querySelectorAll('[data-done]').forEach(b=>b.addEventListener('click',()=>{
-    if(b.getAttribute('aria-disabled')==='true'){say(b.id==='cinemetaDone'?'Tap Add Cinemeta to Nuvio first.':'Tap Copy & open Nuvio first.',true);return}
+    if(b.getAttribute('aria-disabled')==='true'){say({keyDone:'Paste a key that works first.',addonsDone:'Tap Add Cinemeta and Add Comet first.'}[b.id]||'Tap Copy & open Nuvio first.',true);return}
     const i=+b.dataset.done;done[i]=true;store.set('done',done);buzz();
     openStep(current(),true);
   }));
-  $('#restart').addEventListener('click',()=>{done=[false,false,false,false];store.set('cinemeta',false);$('#cinemetaDone').setAttribute('aria-disabled','true');store.set('comet','');store.set('done',done);store.set('copied',false);setWorked(false);openStep(0,true)});
+  $('#restart').addEventListener('click',()=>{done=[false,false,false,false];store.set('cinemeta',false);store.set('cometAdded',false);syncAddonsDone();store.set('done',done);store.set('copied',false);setWorked(false);openStep(0,true)});
+
+  // iPhone: add Nuvio's official AltStore/SideStore source. Copy the link first as a fallback.
+  const SOURCE='https://raw.githubusercontent.com/NuvioMedia/NuvioMobile/cmp-rewrite/store.json';
+  async function addSource(scheme){
+    buzz();await copyText(SOURCE);
+    say('Opening '+(scheme==='altstore'?'AltStore':'SideStore')+'…');
+    setTimeout(()=>{location.href=scheme+'://source?url='+encodeURIComponent(SOURCE)},500);
+  }
+  $('#addSource').addEventListener('click',()=>addSource('altstore'));
+  $('#addSideSource').addEventListener('click',()=>addSource('sidestore'));
 
   // Step 2: copy the homepage and open Nuvio
   let homepage=null;
@@ -496,9 +538,10 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
   // Step 3: Cinemeta (movie and show info). Nuvio installs an addon from a nuvio:// link
   // and opens its Addons page; the copied https link is the fallback if that fails.
   const CINEMETA='v3-cinemeta.strem.io/manifest.json';
-  if(store.get('cinemeta',false))$('#cinemetaDone').setAttribute('aria-disabled','false');
+  function syncAddonsDone(){$('#addonsDone').setAttribute('aria-disabled',String(!(store.get('cinemeta',false)&&store.get('cometAdded',false))))}
+  syncAddonsDone();
   $('#addCinemeta').addEventListener('click',async()=>{
-    buzz();store.set('cinemeta',true);$('#cinemetaDone').setAttribute('aria-disabled','false');
+    buzz();store.set('cinemeta',true);syncAddonsDone();
     // Copy first: if Nuvio doesn't add it from the link, the person pastes it on the Addons page.
     const ok=await copyText('https://'+CINEMETA);
     if(isPhone){say('Opening Nuvio…');setTimeout(()=>{location.href='nuvio://'+CINEMETA},500)}
@@ -521,7 +564,8 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     keyIn.classList.toggle('bad',state==='bad');keyIn.classList.toggle('good',state==='good'||state==='unknown');
     keyMsg.className='msg '+(state==='bad'?'bad':state==='good'?'good':'');keyMsg.textContent=text;
     comet=(state==='good'||state==='unknown')?link:null;
-    install.setAttribute('aria-disabled',String(!comet));copyComet.setAttribute('aria-disabled',String(!comet));
+    install.setAttribute('aria-disabled',String(!comet));copyComet.setAttribute('aria-disabled',String(!comet));$('#keyDone').setAttribute('aria-disabled',String(!comet));
+    $('#cometMsg').textContent=comet?'':'Add Comet unlocks once your key works in step 3.';
   }
   async function checkKey(){
     const seq=++checkSeq,raw=keyIn.value,key=cleanKey(raw);
@@ -542,7 +586,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
         if(/subscription|premium/i.test(d))return setKeyState('bad','Your Real-Debrid plan has run out. Renew it on Real-Debrid, then paste the key again.');
         return setKeyState('bad','Real-Debrid said: '+d.replace(/\s+/g,' ').trim());
       }
-      setKeyState('good','Key works. Tap Install in Nuvio.',link);
+      setKeyState('good','Key works.',link);
     }catch(e){
       if(seq!==checkSeq)return;
       setKeyState('unknown',"Couldn't check the key right now. You can still install it.",link);
@@ -556,14 +600,14 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     }else{keyIn.focus();say('Hold your finger in the box and tap Paste.')}
   });
   install.addEventListener('click',async()=>{
-    if(!comet){say(keyIn.value.trim()?'Wait for the key check to finish.':'Paste your Real-Debrid key first.',true);return}
-    buzz();
+    if(!comet){say(keyIn.value.trim()?'Wait for the key check to finish.':'Paste your Real-Debrid key in step 3 first.',true);return}
+    buzz();store.set('cometAdded',true);syncAddonsDone();
     const ok=await copyText(comet.https);
     if(isPhone){say('Opening Nuvio…');setTimeout(()=>{location.href=comet.nuvio},500)}
     else say(ok?'Copied. In Nuvio open Addons and paste it.':'Copying was blocked. Try Chrome or Safari.',!ok);
   });
   copyComet.addEventListener('click',async()=>{
-    if(!comet){say('Paste a working Real-Debrid key in step 4 first.',true);return}
+    if(!comet){say('Paste a working Real-Debrid key in step 3 first.',true);return}
     buzz();say(await copyText(comet.https)?'Addon link copied.':'Copying was blocked. Try Chrome or Safari.',!comet);
   });
 
