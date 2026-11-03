@@ -168,6 +168,7 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.bad{background:#fde2e2;color:#3b0808}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.need{margin:10px 0 12px;padding-left:1.2em}.need li{margin:6px 0;line-height:1.45}
 </style>
 </head>
 <body>
@@ -337,15 +338,20 @@ footer{text-align:center;color:#6f7b91;font-size:13px;padding:24px 16px 40px;max
     <li class="step" data-step="3">
       <button class="head" aria-expanded="false">
         <span class="num"><b>4</b></span>
-        <span class="title">Make shows play<small>Real-Debrid and Comet</small></span>
+        <span class="title">Make shows play<small>Needs a paid Real-Debrid plan</small></span>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>Your homepage shows what's out there. To press play, Nuvio needs a source: Real-Debrid (paid, a few dollars a month) and Comet (free, we set it up for you).</p>
+        <p>Your homepage shows what's out there. To press play, you need <b>both</b> of these:</p>
+        <ul class="need">
+          <li><b>Real-Debrid</b>: a paid plan, a few dollars a month. This is what actually plays the movie.</li>
+          <li><b>Comet</b>: free. It finds the movie and hands it to Real-Debrid. We set it up for you below.</li>
+        </ul>
+        <p class="note warn">Comet doesn't work on its own. Without an active Real-Debrid plan, nothing will play.</p>
         <ol class="mini">
           <li>
             <h3>Get Real-Debrid</h3>
-            <p>Make an account and buy a plan. Already have one? Skip this.</p>
+            <p>Make an account and buy a plan. A free account isn't enough. Already have a plan? Skip this.</p>
             <a class="btn plain" href="https://real-debrid.com/" target="_blank" rel="noopener">Open Real-Debrid</a>
           </li>
           <li>
