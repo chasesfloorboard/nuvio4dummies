@@ -16,13 +16,13 @@ const path = require('path');
 // TMDB watch-provider IDs for the US region. "|" means "any of these".
 const services = [
   { id: 'netflix',     title: 'Netflix',     providers: '8|1796',         art: 'https://i.postimg.cc/kgkTFbtw/Netflix.png' },
-  { id: 'prime-video', title: 'Prime Video', providers: '9|2100',         art: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/prime-video-light.png' },
+  { id: 'prime-video', title: 'Prime Video', providers: '9|2100',         art: 'https://nuvio4dummies-187076934426.us-west1.run.app/art/prime-video.png' },
   { id: 'disney-plus', title: 'Disney+',     providers: '337',            art: 'https://i.postimg.cc/W1Q56kJB/Disney.png' },
   { id: 'hbo-max',     title: 'HBO Max',     providers: '1899',           art: 'https://i.postimg.cc/cLVFMn8X/HBO-Max.png' },
   { id: 'apple-tv',    title: 'Apple TV+',   providers: '350',            art: 'https://i.postimg.cc/4xrWb9hS/Apple-TV.png' },
   { id: 'paramount',   title: 'Paramount+',  providers: '531|2303|2616',  art: 'https://i.postimg.cc/RZjgQHn8/Paramount.png' },
   { id: 'hulu',        title: 'Hulu',        providers: '15',             art: 'https://i.postimg.cc/CxWcHqfv/Hulu.png' },
-  { id: 'peacock',     title: 'Peacock',     providers: '386|387',        art: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/peacock-light.png' },
+  { id: 'peacock',     title: 'Peacock',     providers: '386|387',        art: 'https://nuvio4dummies-187076934426.us-west1.run.app/art/peacock.png' },
   { id: 'crunchyroll', title: 'Crunchyroll', providers: '283',            art: 'https://i.postimg.cc/Hkf64y7P/Crunchyroll.png' },
 ];
 
