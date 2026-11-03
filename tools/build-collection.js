@@ -22,7 +22,7 @@ const services = [
   { id: 'apple-tv',    title: 'Apple TV+',   providers: '350',            art: 'https://i.postimg.cc/4xrWb9hS/Apple-TV.png' },
   { id: 'paramount',   title: 'Paramount+',  providers: '531|2303|2616',  art: 'https://i.postimg.cc/RZjgQHn8/Paramount.png' },
   { id: 'hulu',        title: 'Hulu',        providers: '15',             art: 'https://i.postimg.cc/CxWcHqfv/Hulu.png' },
-  { id: 'peacock',     title: 'Peacock',     providers: '386|387',        art: 'https://nuvio4dummies-187076934426.us-west1.run.app/art/peacock.png' },
+  { id: 'peacock',     title: 'Peacock',     providers: '386|387',        art: 'https://nuvio4dummies-187076934426.us-west1.run.app/art/peacock-wordmark.png' },
   { id: 'crunchyroll', title: 'Crunchyroll', providers: '283',            art: 'https://i.postimg.cc/Hkf64y7P/Crunchyroll.png' },
 ];
 
