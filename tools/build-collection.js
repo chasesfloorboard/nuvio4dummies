@@ -73,6 +73,8 @@ const tmdbSource = (title, row, filters) => ({
 const streamingServices = {
   id: 'nuvio4dummies-streaming-services',
   title: 'Streaming Services',
+  // Pinned so Streaming Services and Genres sit above the addons' rows on Home.
+  pinToTop: true,
   viewMode: 'TABBED_GRID',
   showAllTab: true,
   folders: services.map(s => {
@@ -91,6 +93,7 @@ const streamingServices = {
 const genreCollection = {
   id: 'nuvio4dummies-genres',
   title: 'Genres',
+  pinToTop: true,
   viewMode: 'TABBED_GRID',
   showAllTab: true,
   folders: genres.map(g => ({

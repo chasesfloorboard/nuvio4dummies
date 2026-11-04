@@ -144,6 +144,17 @@ h1{font-size:clamp(34px,9vw,46px);line-height:1.05;letter-spacing:-1.2px;margin:
 .finish.show{display:block}
 .finish h2{font-size:28px;margin:0 0 6px;letter-spacing:-.6px}
 .finish p{color:var(--dim);margin:0 0 6px}
+.finish .watch,.finish details.help{text-align:left;margin-top:18px}
+.finish .watch .lead{color:var(--ink)}
+.mock.streams{margin:6px 0 10px}
+.mock.streams .bar strong{font-size:20px}
+.mock .chips{display:flex;gap:8px;margin:12px 0 10px}
+.mock .chips span{border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600;background:#1d1e22;color:#c9ccd3;border:1px solid #2b2d33}
+.mock .chips span.on{background:#f2f2f2;color:#111;border-color:#f2f2f2}
+.mock .card{display:flex;flex-direction:column;gap:2px;background:#17181c;border-radius:12px;padding:10px 12px;margin-top:8px;position:relative;min-width:0}
+.mock .card b{font-size:14px;color:#f2f2f2}
+.mock .card span{font-size:12.5px;color:#9aa0aa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mock .card .ring{inset:-5px;border-radius:15px}
 
 .only-ios,.only-desktop{display:none}
 html.ios .only-ios,html.desktop .only-desktop{display:block}
@@ -417,7 +428,33 @@ details.help b{color:var(--ink)}
 
   <div class="finish" id="finish" aria-live="polite">
     <h2>You're all set.</h2>
-    <p>Open Nuvio, pick a service from your homepage and press play.</p>
+    <p>Here's how to watch something.</p>
+    <ol class="then watch">
+      <li><p class="lead">Open Nuvio and pick a show</p>
+        <p>Your streaming services are at the top of Home. Tap one, then tap a show or movie.</p></li>
+      <li><p class="lead">Tap Play</p>
+        <p>For a show, tap the episode you want instead.</p></li>
+      <li><p class="lead">Tap the top one in the list</p>
+        <div class="mock streams" aria-label="Nuvio's list of ways to play an episode. The top one, from Comet, is highlighted.">
+          <div class="bar">
+            <svg class="back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            <strong>S1 E1</strong>
+          </div>
+          <div class="chips"><span class="on">All</span><span>Comet</span></div>
+          <div class="card hit"><b>[RD⚡] Comet 2160p</b><span>Show.Name.S01E01.2160p.WEB-DL.mkv</span><span>💾 7.9 GB</span><span class="ring"></span></div>
+          <div class="card"><b>[RD⚡] Comet 1080p</b><span>Show.Name.S01E01.1080p.WEB.mkv</span><span>💾 2.4 GB</span></div>
+          <div class="card"><b>[RD⚡] Comet 720p</b><span>Show.Name.S01E01.720p.WEB.mkv</span><span>💾 1.1 GB</span></div>
+        </div>
+        <p class="note">Every one is the same episode, just a different copy. 2160p is 4K, 1080p is HD. If one won't play, go back and tap the next.</p></li>
+    </ol>
+    <details class="help">
+      <summary>Something wrong?</summary>
+      <ul>
+        <li>"No streams" or "Playback unavailable"? Open <b>Profile › Content &amp; Discovery › Addons</b> and check that both Cinemeta and Comet are there. If one is missing, do step 4 again, then close Nuvio and open it again.</li>
+        <li>Streaming services at the bottom of Home? You added them before this guide pinned them to the top. Do step 2 again; it moves them up.</li>
+        <li>Brand-new or rare titles can have nothing yet. Try again in a day or two.</li>
+      </ul>
+    </details>
     <button class="quiet" id="restart">Start over</button>
   </div>
 
@@ -434,7 +471,7 @@ details.help b{color:var(--ink)}
         <p>On that page, tap <b>Collections</b>, then <b>Import</b>, then <b>URL</b>. Paste this link and tap <b>Import</b>:</p>
         <code id="tvUrl">/collections/homepage.json</code>
         <button class="btn plain" id="copyTvUrl" type="button">Copy link</button>
-        <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV. Your Streaming Services and Genres rows appear on the TV's Home, below Nuvio's own rows.</p></li>
+        <p>Then tap <b>Save Changes</b> at the bottom, and choose <b>Confirm</b> on the TV. Your Streaming Services and Genres rows appear at the top of the TV's Home.</p></li>
       <li><p class="lead">Add Comet</p>
         <p>Do step 3 on your phone first, up to a key that works. Then tap <b>Copy addon link</b>:</p>
         <button class="btn plain" id="copyCometLink" type="button" aria-disabled="true">Copy addon link</button>
@@ -552,7 +589,9 @@ details.help b{color:var(--ink)}
   let comet=null,checkSeq=0,timer;
   function cleanKey(v){const m=(v||'').replace(/\s+/g,'').match(/[A-Za-z0-9]{20,}/g);return m?m[m.length-1]:''}
   function cometPath(key){
-    const json=JSON.stringify({debridServices:[{service:'realdebrid',apiKey:key}]});
+    // Only copies Real-Debrid already has (they play instantly), 3 per quality, short descriptions:
+    // Comet's full list confuses new users.
+    const json=JSON.stringify({debridServices:[{service:'realdebrid',apiKey:key}],cachedOnly:true,maxResultsPerResolution:3,resultFormat:['title','size','languages']});
     // Keep "/" and "+" out of the base64 so the link is a clean URL path.
     for(let pad='';pad.length<6;pad+=' '){const b=btoa(json+pad);if(!/[+/]/.test(b))return b}
     return encodeURIComponent(btoa(json));
