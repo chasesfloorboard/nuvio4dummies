@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a1322">
-<meta name="description" content="Set up Nuvio in four steps on Android or iPhone: streaming services and genres on your homepage, and shows that play.">
+<meta name="description" content="Set up Nuvio in four steps on Android, iPhone, Windows or Mac: streaming services and genres on your homepage, and shows that play.">
 <title>Nuvio 4 Dummies</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%2338bdf8%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a855f7%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M12 9l11 7-11 7z%22 fill=%22%23fff%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -157,6 +157,7 @@ h1{font-size:clamp(34px,9vw,46px);line-height:1.05;letter-spacing:-1.2px;margin:
 .mock .card .ring{inset:-5px;border-radius:15px}
 
 .only-ios,.only-desktop{display:none}
+html.desktop .t,html:not(.desktop) .d{display:none}
 html.ios .only-ios,html.desktop .only-desktop{display:block}
 html.ios .only-android,html.desktop .only-android{display:none}
 details.fire{margin-top:18px;border:1px solid var(--edge);border-radius:var(--r-sm);background:#0b1424}
@@ -192,6 +193,7 @@ details.help ul{margin:2px 0 0;padding-left:1.2em;display:grid;gap:8px}
 details.help b{color:var(--ink)}
 .link{all:unset;color:var(--sky);text-decoration:underline;cursor:pointer}
 .link:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+kbd{font:600 .9em/1 ui-monospace,SFMono-Regular,Menlo,monospace;background:#1a2840;border:1px solid var(--edge);border-bottom-width:2px;border-radius:6px;padding:2px 6px;color:var(--ink)}
 .btn .n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ffffff2e;font-size:15px}
 </style>
 </head>
@@ -203,12 +205,12 @@ details.help b{color:var(--ink)}
   </div>
 
   <h1>Set up Nuvio in four steps.</h1>
-  <p class="lede">Netflix, Disney+, Hulu and more on your homepage, and shows that actually play. Do this on the phone or tablet you'll watch on.</p>
+  <p class="lede">Netflix, Disney+, Hulu and more on your homepage, and shows that actually play. Do this on the phone, tablet or computer you'll watch on.</p>
   <p class="need-box"><b>You'll need a paid Real-Debrid plan</b>, a few dollars a month. It's what plays the shows. Everything else here is free.</p>
 
   <div class="onphone" id="onphone">
     <canvas id="qr" width="96" height="96" aria-label="QR code for this page"></canvas>
-    <p><b>Open this page on your phone.</b> Scan the code with your camera. Every step here happens in the Nuvio app on that phone.</p>
+    <p><b>Watching on your phone instead?</b> Scan the code with your camera and do these steps there. To watch on this computer, carry on here.</p>
   </div>
 
   <ol class="steps" id="steps">
@@ -268,7 +270,28 @@ details.help b{color:var(--ink)}
         </div>
 
         <div class="only-desktop">
-          <p>Nuvio is set up on a phone or tablet. Scan the code at the top with your phone, and this page opens there with the right download for it.</p>
+          <p>Nuvio for computers is free from Nuvio's own site on GitHub. It's an early test version: it works, but the phone app is smoother.</p>
+          <div class="row">
+            <a class="btn go" href="/pc" id="getPc">Download for Windows</a>
+            <a class="btn plain" href="/mac" id="getMac">Download for Mac</a>
+          </div>
+          <p class="note" style="margin-top:8px">Mac from before 2021 (Intel)? <a href="/mac-intel">Download the Intel version</a> instead.</p>
+          <ol class="then">
+            <li class="win"><p class="lead">Windows: open the file you downloaded</p>
+              <p>If a blue box says <b>Windows protected your PC</b>, click <b>More info</b>, then <b>Run anyway</b>. Click through the installer, then open <b>Nuvio</b> from the Start menu.</p></li>
+            <li class="mac"><p class="lead">Mac: open the file you downloaded</p>
+              <p>Drag <b>Nuvio</b> into <b>Applications</b>, then open it. If it says it can't check Nuvio for malicious software, click <b>Done</b>, go to <b>System Settings › Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>.</p></li>
+            <li><p class="lead">Make your profile</p>
+              <p>Click <b>Continue Without Account</b> (or sign in). On <b>Who's watching?</b>, click <b>Manage Profiles</b>, <b>Add Profile</b>, type a name and click <b>Create Profile</b>.</p></li>
+          </ol>
+          <details class="help">
+            <summary>Didn't work?</summary>
+            <ul>
+              <li>Download didn't start? Get it from <a href="https://github.com/NuvioMedia/NuvioDesktop/releases/latest" target="_blank" rel="noopener">Nuvio's releases page</a>: the file ending <b>.msi</b> is for Windows, <b>arm64.dmg</b> for newer Macs and <b>x86_64.dmg</b> for Intel Macs.</li>
+              <li>Mac says Nuvio "is damaged"? You have the wrong version for your Mac. Try the other download.</li>
+              <li>Linux? The same page has AppImage, .deb, .rpm and Flatpak files.</li>
+            </ul>
+          </details>
           <div class="row" style="margin-top:16px"><button class="btn plain" data-done="0">I have Nuvio</button></div>
         </div>
 
@@ -309,20 +332,21 @@ details.help b{color:var(--ink)}
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p>One button copies your homepage and opens Nuvio. Then you paste it in.</p>
+        <p class="t">One button copies your homepage and opens Nuvio. Then you paste it in.</p>
+        <p class="d">One button copies your homepage. Then you paste it into Nuvio.</p>
         <button class="btn go" id="copyOpen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h2"/></svg>
-          Copy &amp; open Nuvio
+          <span class="t">Copy &amp; open Nuvio</span><span class="d">Copy your homepage</span>
         </button>
 
         <ol class="then">
           <li>
             <p class="lead">In Nuvio, go to</p>
             <div class="path"><i>Profile</i><em>›</em><i>Layout</i><em>›</em><i>Collections</i></div>
-            <p class="note">Profile is the last tab at the bottom of Nuvio.</p>
+            <p class="note"><span class="t">Profile is the last tab at the bottom of Nuvio.</span><span class="d">Profile is in the bar on the left of Nuvio.</span></p>
           </li>
           <li>
-            <p class="lead">Tap the clipboard at the top right</p>
+            <p class="lead"><span class="t">Tap the clipboard at the top right</span><span class="d">Click the clipboard at the top right</span></p>
             <div class="mock" aria-label="Nuvio's Collections screen. The clipboard button at the top right is highlighted.">
               <div class="bar">
                 <svg class="back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
@@ -335,7 +359,7 @@ details.help b{color:var(--ink)}
             <p class="note">Not the two squares next to it. That one copies instead of pasting.</p>
           </li>
           <li>
-            <p class="lead">Hold your finger in the box, tap Paste, then Import</p>
+            <p class="lead"><span class="t">Hold your finger in the box, tap Paste, then Import</span><span class="d">Click in the box, press <kbd class="mod">Ctrl</kbd>+V, then click Import</span></p>
             <div class="mock dialog" aria-label="Nuvio's Import Collections box with the Paste bubble highlighted, then the Import button.">
               <h4>Import Collections</h4>
               <p class="sub">Paste your collections JSON below.</p>
@@ -348,7 +372,7 @@ details.help b{color:var(--ink)}
         <details class="help">
           <summary>Didn't work?</summary>
           <ul>
-            <li>Box still empty, or it says "Invalid JSON"? Come back, tap <b>Copy again</b>, then paste again.</li>
+            <li>Box still empty, or it says "Invalid JSON"? Come back, <span class="t">tap</span><span class="d">click</span> <b>Copy again</b>, then paste again.</li>
             <li>Rows say "Add a TMDB API key in Settings"? That Nuvio is old or unofficial. Uninstall it, install it again from step 1, then redo this step.</li>
             <li>Importing replaces any collections already in this profile.</li>
           </ul>
@@ -374,7 +398,8 @@ details.help b{color:var(--ink)}
             <p class="note">Already have one? Skip to b.</p>
             <a class="btn plain" href="https://real-debrid.com/" target="_blank" rel="noopener">Open Real-Debrid</a></li>
           <li><p class="lead">Copy your key</p>
-            <p>On your key page, hold your finger on the long code under <b>API private token</b>, tap <b>Select all</b>, then <b>Copy</b>.</p>
+            <p class="t">On your key page, hold your finger on the long code under <b>API private token</b>, tap <b>Select all</b>, then <b>Copy</b>.</p>
+            <p class="d">On your key page, double-click the long code under <b>API private token</b> to select it, then press <kbd class="mod">Ctrl</kbd>+C.</p>
             <a class="btn plain" href="https://real-debrid.com/apitoken" target="_blank" rel="noopener">Open my key page</a></li>
           <li><p class="lead">Paste it here</p>
             <div class="field">
@@ -402,11 +427,13 @@ details.help b{color:var(--ink)}
     <li class="step" data-step="3">
       <button class="head" aria-expanded="false">
         <span class="num"><b>4</b></span>
-        <span class="title">Add your addons<small>Two taps, free</small></span>
+        <span class="title">Add your addons<small><span class="t">Two taps, free</span><span class="d">Two clicks, free</span></small></span>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="body"><div><div class="inner">
-        <p><b>Cinemeta</b> opens movies and shows. <b>Comet</b> finds them and plays them through your Real-Debrid. Tap each one; Nuvio opens and adds it. Come back here after each.</p>
+        <p><b>Cinemeta</b> opens movies and shows. <b>Comet</b> finds them and plays them through your Real-Debrid.</p>
+        <p class="t">Tap each one; Nuvio opens and adds it. Come back here after each.</p>
+        <p class="d">Each button copies a link. After each one, go to Nuvio's <b>Profile › Content &amp; Discovery › Addons</b>, click in the <b>Addon URL</b> box, press <kbd class="mod">Ctrl</kbd>+V and click <b>Install Addon</b>.</p>
         <div class="row">
           <button class="btn go" id="addCinemeta" type="button"><span class="n">1</span> Add Cinemeta</button>
           <button class="btn go" id="installComet" type="button" aria-disabled="true"><span class="n">2</span> Add Comet</button>
@@ -416,8 +443,9 @@ details.help b{color:var(--ink)}
         <details class="help">
           <summary>Not in the list?</summary>
           <ul>
-            <li>Close Nuvio all the way (swipe it away from your recent apps), open it again and check the list.</li>
-            <li>Still missing? Tap its button here again (that copies its link). Then on Nuvio's Addons page, hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>.</li>
+            <li class="t">Close Nuvio all the way (swipe it away from your recent apps), open it again and check the list.</li>
+            <li class="t">Still missing? Tap its button here again (that copies its link). Then on Nuvio's Addons page, hold your finger in the <b>Addon URL</b> box, tap <b>Paste</b>, then <b>Install Addon</b>.</li>
+            <li class="d">Still missing? Click its button here again and paste it once more. If Nuvio says it's already installed, quit Nuvio and open it again.</li>
             <li>Says "This profile uses primary addons"? Switch to your first profile and try again.</li>
           </ul>
         </details>
@@ -431,10 +459,10 @@ details.help b{color:var(--ink)}
     <p>Here's how to watch something.</p>
     <ol class="then watch">
       <li><p class="lead">Open Nuvio and pick a show</p>
-        <p>Your streaming services are at the top of Home. Tap one, then tap a show or movie.</p></li>
-      <li><p class="lead">Tap Play</p>
-        <p>For a show, tap the episode you want instead.</p></li>
-      <li><p class="lead">Tap the top one in the list</p>
+        <p>Your streaming services are at the top of Home. <span class="t">Tap</span><span class="d">Click</span> one, then a show or movie.</p></li>
+      <li><p class="lead"><span class="t">Tap Play</span><span class="d">Click Play</span></p>
+        <p>For a show, pick the episode you want instead.</p></li>
+      <li><p class="lead">Pick the top one in the list</p>
         <div class="mock streams" aria-label="Nuvio's list of ways to play an episode. The top one, from Comet, is highlighted.">
           <div class="bar">
             <svg class="back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
@@ -445,7 +473,7 @@ details.help b{color:var(--ink)}
           <div class="card"><b>[RD⚡] Comet 1080p</b><span>Show.Name.S01E01.1080p.WEB.mkv</span><span>💾 2.4 GB</span></div>
           <div class="card"><b>[RD⚡] Comet 720p</b><span>Show.Name.S01E01.720p.WEB.mkv</span><span>💾 1.1 GB</span></div>
         </div>
-        <p class="note">Every one is the same episode, just a different copy. 2160p is 4K, 1080p is HD. If one won't play, go back and tap the next.</p></li>
+        <p class="note">Every one is the same episode, just a different copy. 2160p is 4K, 1080p is HD. If one won't play, go back and pick the next.</p></li>
     </ol>
     <details class="help">
       <summary>Something wrong?</summary>
@@ -493,7 +521,12 @@ details.help b{color:var(--ink)}
   // Phones and tablets open nuvio:// links; desktop browsers can't.
   const isPhone=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isMac=!isPhone&&/Mac/i.test(navigator.platform||navigator.userAgent);
   document.documentElement.classList.add(isIOS?'ios':isPhone?'android':'desktop');
+  if(isMac){document.querySelectorAll('kbd.mod').forEach(k=>k.textContent='⌘');
+    // Show the Mac download and steps first.
+    const row=$('#getMac').parentNode;row.insertBefore($('#getMac'),row.firstChild);$('#getMac').className='btn go';$('#getPc').className='btn plain';
+    const win=document.querySelector('li.win');win.parentNode.insertBefore(document.querySelector('li.mac'),win);}
   if(!isPhone){
     $('#onphone').classList.add('show');
     try{const q=qrcode(0,'M');q.addData(location.origin+'/');q.make();

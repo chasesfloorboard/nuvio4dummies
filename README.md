@@ -1,8 +1,8 @@
 # Nuvio 4 Dummies
 
-Four-step setup guide for Nuvio (install, homepage, Cinemeta, Comet), served on Google Cloud Run.
+Four-step setup guide for Nuvio on phones and computers (install, homepage, Cinemeta, Comet), served on Google Cloud Run.
 
-Short download links: `/android` (Nuvio for phones) and `/tv` (Nuvio TV), both pointing at the latest official GitHub releases.
+Short download links: `/android` (Nuvio for phones), `/tv` (Nuvio TV), `/pc` (Windows), `/mac` and `/mac-intel` (Nuvio Desktop), all pointing at the latest official GitHub releases.
 
 - `public/index.html` – the site
 - `public/collections/` – Nuvio collections, built by `node tools/build-collection.js`:

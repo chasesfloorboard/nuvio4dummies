@@ -4,11 +4,38 @@ const path = require('path');
 
 const root = path.join(__dirname, 'public');
 
-http.createServer((req, res) => {
+// Nuvio Desktop's file names include the version, so there's no fixed
+// "latest" download link. Look the files up on GitHub (cached for an hour)
+// and fall back to the releases page if that fails.
+const DESKTOP_RELEASES = 'https://github.com/NuvioMedia/NuvioDesktop/releases/latest';
+const desktopFiles = {
+  '/pc': /^Nuvio-Windows-x64-.*\.msi$/,
+  '/windows': /^Nuvio-Windows-x64-.*\.msi$/,
+  '/mac': /^Nuvio-macOS-arm64-.*\.dmg$/,
+  '/mac-intel': /^Nuvio-macOS-x86_64-.*\.dmg$/
+};
+let desktopAssets = null, desktopAssetsAt = 0;
+async function desktopDownload(route) {
+  if (!desktopAssets || Date.now() - desktopAssetsAt > 60 * 60 * 1000) {
+    try {
+      const r = await fetch('https://api.github.com/repos/NuvioMedia/NuvioDesktop/releases/latest', {
+        headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'nuvio4dummies' },
+        signal: AbortSignal.timeout(5000)
+      });
+      if (!r.ok) throw new Error('GitHub ' + r.status);
+      desktopAssets = (await r.json()).assets.map(a => ({ name: a.name, url: a.browser_download_url }));
+      desktopAssetsAt = Date.now();
+    } catch (e) {
+      if (!desktopAssets) return DESKTOP_RELEASES;
+    }
+  }
+  const asset = desktopAssets.find(a => desktopFiles[route].test(a.name));
+  return asset ? asset.url : DESKTOP_RELEASES;
+}
+
+http.createServer(async (req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
 
-  // Short address for typing into Downloader on a Fire TV: sends the latest
-  // official Nuvio TV release (32-bit build, runs on every Fire TV device).
   // Short download links to the latest official Nuvio releases on GitHub.
   //   /tv       Nuvio TV, 32-bit build: runs on every Fire TV and Android TV.
   //   /android  Nuvio for phones, 64-bit build: every Android phone since ~2017.
@@ -19,6 +46,11 @@ http.createServer((req, res) => {
   const download = downloads[pathname.replace(/\/+$/, '').toLowerCase()];
   if (download) {
     res.writeHead(302, { Location: download, 'Cache-Control': 'no-cache' });
+    return res.end();
+  }
+  const route = pathname.replace(/\/+$/, '').toLowerCase();
+  if (desktopFiles[route]) {
+    res.writeHead(302, { Location: await desktopDownload(route), 'Cache-Control': 'no-cache' });
     return res.end();
   }
   const file = path.join(root, pathname === '/' ? 'index.html' : pathname);
